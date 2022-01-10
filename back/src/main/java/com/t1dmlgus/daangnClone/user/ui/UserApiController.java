@@ -25,6 +25,6 @@ public class UserApiController {
 
         ResponseDto<?> join = userServiceImpl.join(joinRequestDto);
 
-        return new ResponseEntity<>(join, HttpStatus.OK);
+        return new ResponseEntity<>(join, HttpStatus.CREATED);
     }
 }

@@ -60,7 +60,7 @@ class UserApiControllerUnitTest {
 
         //then
         resultActions
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value("회원가입이 완료되었습니다."))
                 .andDo(print());
 
