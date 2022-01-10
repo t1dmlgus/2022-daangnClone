@@ -1,10 +1,7 @@
 package com.t1dmlgus.daangnClone.user.domain;
 
 import com.t1dmlgus.daangnClone.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -32,6 +29,19 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
+    @Builder
+    public User(String email, String password, String name, String phone, String nickName, Role role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.nickName = nickName;
+        this.role = role;
+    }
+
+
 
 
 
