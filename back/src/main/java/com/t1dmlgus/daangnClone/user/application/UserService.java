@@ -7,4 +7,7 @@ public interface UserService {
 
     // 회원가입
     ResponseDto<?> join(JoinRequestDto JoinRequestDto);
+
+    // 회원조회
+    ResponseDto<?> enquiry(Long userId);
 }
