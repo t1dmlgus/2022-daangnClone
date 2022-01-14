@@ -41,8 +41,9 @@ public class User extends BaseTimeEntity {
         this.role = role;
     }
 
-
-
-
+    // 비밀번호 암호화
+    public void bcryptPw(String encode) {
+        this.password = encode;
+    }
 
 }
