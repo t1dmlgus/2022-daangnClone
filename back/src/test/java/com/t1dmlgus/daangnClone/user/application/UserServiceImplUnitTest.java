@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -31,17 +33,16 @@ class UserServiceImplUnitTest {
     private UserServiceImpl userServiceImpl;
     @Mock
     private UserRepository userRepository;
-    
+    @Spy
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     
     @DisplayName("서비스 - 회원가입 테스트")
     @Test
     public void joinTest() throws Exception{
         //given
 
-        JoinRequestDto joinRequestDto = new JoinRequestDto("dmlgusgngl@gmail.com",
-                "1234", "이의현", "2232-1234", "t1dmlgus");
+        JoinRequestDto joinRequestDto = new JoinRequestDto("dmlgusgngl@gmail.com", "1234", "이의현", "2232-1234", "t1dmlgus");
         User user = joinRequestDto.toEntity();
-
         doReturn(user).when(userRepository).save(any(User.class));
 
         //when
@@ -50,6 +51,59 @@ class UserServiceImplUnitTest {
         //then
         assertThat(join.getMessage()).isEqualTo("회원가입이 완료되었습니다.");
     }
+
+    @DisplayName("서비스- 이메일 중복확인 테스트")
+    @Test
+    public void duplicateUsernameTest() throws Exception {
+        //given
+        User testUser1 = User.builder()
+                .email("테스트1@gmail.com")
+                .build();
+        User testUser2 = User.builder()
+                .email("테스트1@gmail.com")
+                .build();
+
+        when(userRepository.existsByEmail(testUser1.getEmail())).thenReturn(true);
+        //when
+
+        //then
+        assertThatThrownBy(() -> userServiceImpl.duplicateUser(testUser2))
+                .isInstanceOf(CustomApiException.class)
+                .hasMessage("현재 사용중인 이메일입니다.");
+    }
+
+    @DisplayName("서비스 - 비밀번호 암호화 테스트")
+    @Test
+    public void bcryptPwTest() throws Exception {
+        //given
+        User testUser = User.builder()
+                .email("테스트1")
+                .password("1234")
+                .build();
+
+        //when
+        userServiceImpl.bcryptPw(testUser);
+        //then
+        assertThat(testUser.getPassword()).isNotEqualTo("1234");
+
+    }
+
+    @DisplayName("서비스 - 권한 설정 테스트")
+    @Test
+    public void setPermissionTest() throws Exception{
+        //given
+        User testUser = User.builder()
+                .email("테스트1")
+                .password("1234")
+                .build();
+
+        //when
+        userServiceImpl.setPermission(testUser);
+        
+        //then
+        assertThat(testUser.getRole()).isEqualTo(Role.ROLE_USER);
+    }
+
 
     @DisplayName("서비스 - 회원조회 테스트")
     @Test

@@ -6,7 +6,10 @@ import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class UserApiController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> join(@RequestBody JoinRequestDto joinRequestDto){
+    public ResponseEntity<?> join(@Valid @RequestBody JoinRequestDto joinRequestDto, BindingResult bindingResult){
 
         ResponseDto<?> joinUser = userService.join(joinRequestDto);
 
