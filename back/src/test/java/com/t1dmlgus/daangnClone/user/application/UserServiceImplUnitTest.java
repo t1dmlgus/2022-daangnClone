@@ -52,7 +52,7 @@ class UserServiceImplUnitTest {
         assertThat(join.getMessage()).isEqualTo("회원가입이 완료되었습니다.");
     }
 
-    @DisplayName("닉네임 중복검사 테스트")
+    @DisplayName("서비스- 이메일 중복확인 테스트")
     @Test
     public void duplicateUsernameTest() throws Exception {
         //given
@@ -72,7 +72,7 @@ class UserServiceImplUnitTest {
                 .hasMessage("현재 사용중인 이메일입니다.");
     }
 
-    @DisplayName("비밀번호 암호화 테스트")
+    @DisplayName("서비스 - 비밀번호 암호화 테스트")
     @Test
     public void bcryptPwTest() throws Exception {
         //given
@@ -88,7 +88,7 @@ class UserServiceImplUnitTest {
 
     }
 
-    @DisplayName("권한 설정 테스트")
+    @DisplayName("서비스 - 권한 설정 테스트")
     @Test
     public void setPermissionTest() throws Exception{
         //given
