@@ -18,17 +18,35 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    @Override
     @Transactional
     public ResponseDto<?> join(JoinRequestDto joinRequestDto) {
 
         User user = joinRequestDto.toEntity();
+
+        // 1. 중복확인(이메일)
+        duplicateUser(user);
+
+        // 2. 암호화(패스웨드)
+        // 3. 권한 처리
+        // 4. 영속화
         User joinUser = userRepository.save(user);
 
         return new ResponseDto<>("회원가입이 완료되었습니다.", joinUser.getId());
     }
 
+    // 아이디 중복확인
+    protected void duplicateUser(User user){
+
+        boolean existsUsername = userRepository.existsByEmail(user.getEmail());
+        if(existsUsername){
+            throw new CustomApiException("현재 사용중인 이메일입니다.");
+        }
+    }
+
 
     @Override
+    @Transactional
     public ResponseDto<?> enquiry(Long userId) {
 
         User enquiryUser = userRepository.findById(userId).orElseThrow(
