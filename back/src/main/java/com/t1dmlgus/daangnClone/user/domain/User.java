@@ -46,4 +46,8 @@ public class User extends BaseTimeEntity {
         this.password = encode;
     }
 
+    // 권한 설정
+    public void setPermission(Role role) {
+        this.role = role;
+    }
 }

@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.user.application;
 
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
+import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import com.t1dmlgus.daangnClone.user.ui.dto.JoinRequestDto;
@@ -33,10 +34,16 @@ public class UserServiceImpl implements UserService{
         bcryptPw(user);
 
         // 3. 권한 처리
+        setPermission(user);
+
         // 4. 영속화
         User joinUser = userRepository.save(user);
 
         return new ResponseDto<>("회원가입이 완료되었습니다.", joinUser.getId());
+    }
+
+    protected void setPermission(User user) {
+       user.setPermission(Role.ROLE_USER);
     }
 
     protected void duplicateUser(User user){
