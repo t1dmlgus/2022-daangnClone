@@ -88,6 +88,21 @@ class UserServiceImplUnitTest {
 
     }
 
+    @DisplayName("권한 설정 테스트")
+    @Test
+    public void setPermissionTest() throws Exception{
+        //given
+        User testUser = User.builder()
+                .email("테스트1")
+                .password("1234")
+                .build();
+
+        //when
+        userServiceImpl.setPermission(testUser);
+        
+        //then
+        assertThat(testUser.getRole()).isEqualTo(Role.ROLE_USER);
+    }
 
 
     @DisplayName("서비스 - 회원조회 테스트")
