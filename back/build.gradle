@@ -30,6 +30,8 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '2.2.2.RELEASE'
+
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
