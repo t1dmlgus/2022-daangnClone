@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.product.domain;
 
 import com.t1dmlgus.daangnClone.BaseTimeEntity;
+import com.t1dmlgus.daangnClone.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class Product extends BaseTimeEntity {
 
     // 거래 상태 -> enum
     private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
 
     @Builder
