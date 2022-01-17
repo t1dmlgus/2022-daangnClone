@@ -1,0 +1,69 @@
+ifndef::snippets[]
+:snippets: build/generated-snippets
+endif::[]
+
+= Spring REST Docs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+[[resources-user]]
+== 유저 API
+
+[[resources-user-join]]
+=== 회원가입 요청
+
+==== HTTP request
+
+include::{snippets}/user-api-controller-unit-test/join-user-test/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/user-api-controller-unit-test/join-user-test/http-response.adoc[]
+
+
+==== request-fields
+
+include::{snippets}/user-api-controller-unit-test/join-user-test/request-fields.adoc[]
+
+
+[[resources-user-enquiry]]
+=== 프로필 회원 조회
+
+==== HTTP request
+
+include::{snippets}/user-api-controller-unit-test/enquiry-user-test/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/user-api-controller-unit-test/enquiry-user-test/http-response.adoc[]
+
+
+[[resources-user-put]]
+=== 회원 유효성 검사
+
+==== HTTP request
+
+include::{snippets}/user-api-controller-unit-test/validation-user-test/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/user-api-controller-unit-test/validation-user-test/http-response.adoc[]
+
+
+
+[[resources-image]]
+== 상품 API
+
+[[resources-image-put]]
+=== 상품 등록
+
+==== HTTP request
+
+include::{snippets}/product-api-controller-test/register-product-test/http-request.adoc[]
+
+==== HTTP response
+
+include::{snippets}/product-api-controller-test/register-product-test/http-response.adoc[]
+
+
