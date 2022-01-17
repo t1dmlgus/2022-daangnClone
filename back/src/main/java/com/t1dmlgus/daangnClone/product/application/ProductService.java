@@ -8,5 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ProductService {
 
     // 상품 등록
-    ResponseDto<?> register(ProductRequestDto productRequestDto, MultipartFile multipartFile, Long userId);
+    ResponseDto<?> registerProduct(ProductRequestDto productRequestDto, MultipartFile multipartFile);
 }
