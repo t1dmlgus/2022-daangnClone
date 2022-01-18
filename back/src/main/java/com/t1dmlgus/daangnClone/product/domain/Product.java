@@ -37,9 +37,10 @@ public class Product extends BaseTimeEntity {
 
 
     @Builder
-    public Product(String title, int price, String caption) {
+    public Product(String title, int price, String caption, User user) {
         this.title = title;
         this.price = price;
         this.caption = caption;
+        this.user = user;
     }
 }

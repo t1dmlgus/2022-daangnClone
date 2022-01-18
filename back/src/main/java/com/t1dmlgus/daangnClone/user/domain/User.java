@@ -1,24 +1,27 @@
 package com.t1dmlgus.daangnClone.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.t1dmlgus.daangnClone.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
 
 
-@Entity
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
 public class User extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
     private String name;

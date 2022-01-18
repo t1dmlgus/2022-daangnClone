@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
+import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.product.ProductRequestDto;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +45,7 @@ class ProductServiceImplTest {
         doNothing().when(s3service).upload(any(),any());
 
         //when
-        ResponseDto<?> responseDto = productServiceImpl.registerProduct(productRequestDto, file);
+        ResponseDto<?> responseDto = productServiceImpl.registerProduct(productRequestDto, file, new User());
 
         //then
         assertThat(responseDto.getMessage()).isEqualTo("상품이 등록되었습니다.");

@@ -3,6 +3,7 @@ package com.t1dmlgus.daangnClone.product.application;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
+import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.product.ProductRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public ResponseDto<?> registerProduct(ProductRequestDto productRequestDto, MultipartFile multipartFile) {
+    public ResponseDto<?> registerProduct(ProductRequestDto productRequestDto, MultipartFile multipartFile, User user) {
 
-        Product product = productRequestDto.toEntity();
+        Product product = productRequestDto.toEntity(user);
 
         // 1. 영속화
         Product saveProduct = productRepository.save(product);
