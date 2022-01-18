@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.user.ui.dto.product;
 
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
+import com.t1dmlgus.daangnClone.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,12 +28,13 @@ public class ProductRequestDto {
     private String caption;
 
 
-    public Product toEntity(){
+    public Product toEntity(User user){
 
         return Product.builder()
                 .title(title)
                 .price(price)
                 .caption(caption)
+                .user(user)
                 .build();
     }
 }
