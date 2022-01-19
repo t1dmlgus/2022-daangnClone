@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/signin.css">
+    <title>로그인페이지</title>
+</head>
+<body>
+    <div class="container">
+        <h3 class="signup_title">로그인</h3>
+        <div class="login__form">
+
+            <form class="login__input" action="/auth/signin" method="POST">
+                <label for="email" class="lb">이메일(ID)
+                    <input type="text" id="email" name="username" placeholder="이메일" required="required"/>
+                </label>
+                <label for="password" class="lb">비밀번호(PW)
+                    <input type="password" id="password" name="password" placeholder="패스워드" required="required" />
+                </label>
+                <button class="join">로그인</button>
+            </form>
+            <!-- 로그인 -->
+        </div>
+        <div class="forgotPw">
+            <span>비밀번호를 잊어버리셨나요?</span>
+            <a href="#">비밀번호 찾기</a>
+        </div>
+    </div>
+  </body>
+  
+</html>

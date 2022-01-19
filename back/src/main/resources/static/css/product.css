@@ -1,0 +1,36 @@
+.container{position: relative;}
+
+
+.back{position: absolute;left: 10px;top: 15px; display: inline-block; width: 46px;}
+.back img{width: 20px;}
+/* back */
+
+#sec_01{}
+/* swiper */
+
+#sec_02{margin:20px 30px; border-bottom: 1px solid #ccc;}
+#sec_02 .profile{padding: 10px 0; border-bottom: 1px solid #ccc;}
+#sec_02 .profile img{width: 40px;}
+#sec_02 .profile span{vertical-align: middle;line-height: 1;}
+#sec_02 .prod_desc{padding-bottom: 15px;}
+#sec_02 .prod_desc >div span{display: inline-block; width: 48%;}
+#sec_02 .prod_desc .cont{height: 80px;}
+
+
+#sec_03{margin:20px 30px;}
+#sec_03 .product_caption{padding-bottom: 15px;}
+#sec_03 .showall{float: right;}
+#sec_03 .products{}
+#sec_03 .products >a{display: inline-block; width: 46%; margin: 2% 1%;}
+#sec_03 .products >a img{border: 1px solid #000;box-sizing: border-box;}
+#sec_03 .products >a span{display: block; padding: 2px 0;}
+
+#sec_04{margin:20px 0px; padding: 10px 0; border-top: 1px solid #ccc;}
+#sec_04 .icon{width: 40%;display: inline-block;margin: 0 auto;}
+#sec_04 .likebtn{display: inline-block; padding: 0 15px 0 ; width: 25%; vertical-align: baseline; border-right: 1px solid #ccc;}
+#sec_04 .commentbtn{display: inline-block; margin:0 10%; width: 25%;}
+
+#sec_04 .comment{width: 58%; display: inline-block;}
+#sec_04 .comment a{width: 41%; display: inline-block; padding:15px 5px; 
+    background-color: rgb(253, 137, 43);color: #fff;border-radius: 10px;font-size: 15px;
+text-align: center;}

@@ -1,0 +1,12 @@
+.container{margin: 160px 0 0;}
+
+/* index */
+
+.main_image{ width: 160px;margin: 0 auto;}
+.main_text{text-align: center;margin: 0 0 140px; }
+.main_text strong{display: block; padding: 20px 0; font-size: 25px;}
+.main_text span{}
+
+.signup{display: block; margin: 0 auto; width: 95%; height: 6%; background-color: rgb(253, 137, 43); text-align: center; font-size: 20px; color: #fff; margin: 0 auto;}
+.signin{text-align: center;}
+.signin a{color:rgb(253, 137, 43)}

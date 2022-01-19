@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/", "/api/user/signup").permitAll()
-                .antMatchers("/api/product/**", "/user/**").authenticated()
+                .antMatchers("/api/product/**", "/api/user/**").authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/api/signin")
-                .defaultSuccessUrl("/", false);
+                .loginProcessingUrl("/auth/signin")
+                .defaultSuccessUrl("/product/randing", false);
 
     }
 

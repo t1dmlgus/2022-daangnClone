@@ -19,6 +19,7 @@ public class UserApiController {
     private final UserService userService;
 
 
+    // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> join(@Valid @RequestBody JoinRequestDto joinRequestDto, BindingResult bindingResult){
 
@@ -27,6 +28,7 @@ public class UserApiController {
         return new ResponseEntity<>(joinUser, HttpStatus.CREATED);
     }
 
+    // 회원조회
     @GetMapping("/{userId}")
     public ResponseEntity<?> enquiryUser(@PathVariable Long userId) {
 
