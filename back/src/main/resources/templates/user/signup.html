@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- css -->
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/signup.css">
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>회원가입</title>
+</head>
+<body>
+    <div class="container">
+
+        <h3 class="signup_title">회원가입</h3>
+        <div class="login__form">
+
+            <form id="profileUpdate" class="login__input" onsubmit="join(event)">
+                <label for="email" class="lb">이메일(ID)
+                    <input type="text" id="email" name="username" placeholder="이메일" required="required" length="20"/>
+                </label>
+                
+                <label for="password" class="lb">비밀번호(PW)
+                    <input type="password" id="password" name="password" placeholder="패스워드" required="required" />
+                </label>
+                
+                <label for="name" class="lb">이름
+                    <input type="text" id="name" name="name" placeholder="이름" required="required" />
+                </label>
+                
+                <label for="phone" class="lb">핸드폰번호
+                    <input type="text" id="phone" name="phone" placeholder="000-0000-0000"/>
+                </label>
+                
+                <label for="nickName" class="lb">닉네임
+                    <input type="text" id="nickName" name="nickName" placeholder="닉네임" required="required" length="20"/>
+                </label>
+                
+                <button class="join">가입하기</button>
+            </form>
+            <!-- 회원가입 -->
+        </div>
+    </div>
+  
+    <script src="/js/signup.js"></script>
+  </body>
+  
+</html>
