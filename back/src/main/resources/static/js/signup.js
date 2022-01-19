@@ -31,20 +31,13 @@ function join(evt) {
         contentType:"application/json; charset=utf-8",
         dataType:"json"
 
-
     }).done(res=>{
         console.log(res);
         alert(res.message);
         location.href=`/`;
     }).fail(error=>{
         console.log(error);
-        alert(JSON.stringify(error.responseJSON.data));
-
-        if(error.responseJSON.data != null){
-        }else{
-            alert(error.responseJSON.message);
-        }
-
+        alert(JSON.stringify(error.responseText));
     });
 
 }

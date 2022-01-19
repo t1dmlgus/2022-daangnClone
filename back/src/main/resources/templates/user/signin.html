@@ -14,15 +14,13 @@
         <h3 class="signup_title">로그인</h3>
         <div class="login__form">
 
-            <form id="profileUpdate" class="login__input" onsubmit="join(event)">
+            <form class="login__input" action="/auth/signin" method="POST">
                 <label for="email" class="lb">이메일(ID)
-                    <input type="text" id="email" name="username" placeholder="이메일" required="required" length="20"/>
+                    <input type="text" id="email" name="username" placeholder="이메일" required="required"/>
                 </label>
-                
-                <label for="password"class="lb">비밀번호(PW)
-                    <input type="password" id="password" placeholder="패스워드" required="required" />
+                <label for="password" class="lb">비밀번호(PW)
+                    <input type="password" id="password" name="password" placeholder="패스워드" required="required" />
                 </label>
-
                 <button class="join">로그인</button>
             </form>
             <!-- 로그인 -->
@@ -32,8 +30,6 @@
             <a href="#">비밀번호 찾기</a>
         </div>
     </div>
-  
-    <script src="/js/join.js"></script>
   </body>
   
 </html>
