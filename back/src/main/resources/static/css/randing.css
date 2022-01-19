@@ -1,0 +1,28 @@
+.container{margin: 20px 15px}
+
+#sec_header{
+    margin: 30px 0; position: relative;
+}
+
+#sec_header h3{display: inline;}
+#sec_header >div{display: inline; float: right;}
+#sec_header >div >a{display: inline-block; width: 20px;}
+
+
+#sec_content{border-top: 1px  solid #ccc;}
+#sec_content >div{padding: 10px 0; border-bottom: 1px  solid #ccc;}
+#sec_content >div >a{width: 35%; display: inline-block; }
+#sec_content >div div.cont_img{}
+#sec_content >div div.cont_desc{display: inline-block; width: 60%; font-size: 14px;vertical-align: middle;}
+#sec_content >div div.cont_desc .service{float:right}
+#sec_content >div div.cont_desc .service a{display: inline-block; width: 50px;}
+#sec_content >div div.cont_desc .service img{width: 20px;padding: 0 10px;}
+
+
+/*position: absolute; bottom: 0;left: 0;  고정  */
+
+#sec_footer{width: 100%;background-color: #fff;padding: 10px 0;border-top: 1px solid #ccc;}
+#sec_footer >div{width: 50%; margin:0 auto}
+#sec_footer >div >a{display: inline-block; width: 48%; text-align: center;}
+#sec_footer >div >a img{width: 30px;}
+#sec_footer >div >a span{display: block;}
