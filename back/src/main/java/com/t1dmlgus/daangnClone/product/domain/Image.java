@@ -1,5 +1,6 @@
 package com.t1dmlgus.daangnClone.product.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.t1dmlgus.daangnClone.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "product")
 public class Image extends BaseTimeEntity {
 
     @Id
@@ -23,6 +24,7 @@ public class Image extends BaseTimeEntity {
 
     private String fileName;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
