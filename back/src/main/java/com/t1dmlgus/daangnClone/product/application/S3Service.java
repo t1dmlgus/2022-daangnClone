@@ -13,8 +13,6 @@ import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
 import com.t1dmlgus.daangnClone.product.domain.Image;
 import com.t1dmlgus.daangnClone.product.domain.ImageRepository;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class S3Service {
 
     Logger logger = LoggerFactory.getLogger(S3Service.class);
 
-    //public static final String CLOUD_FRONT_DOMAIN_NAME="d3r3itann8ixvx.cloudfront.net";
+    public static final String CLOUD_FRONT_DOMAIN_NAME="dhtabz8gaqtjf.cloudfront.net/";
 
     private final ImageRepository imageRepository;
     private AmazonS3 s3Client;
@@ -66,10 +66,8 @@ public class S3Service {
         // 파일명
         String fileName = createFileName(multipartFile);
         logger.info("fileName, {}", fileName);
-
         // 업로드
         uploadImages(multipartFile, fileName);
-
         // 영속화
         saveImages(fileName, product);
     }
@@ -93,7 +91,8 @@ public class S3Service {
 
     // 이미지 영속화
     protected Long saveImages(String fileName, Product product) {
-        Image saveImage = imageRepository.save(new Image(fileName, product));
+
+        Image saveImage = imageRepository.save(new Image("https://" + CLOUD_FRONT_DOMAIN_NAME + fileName, product));
         return saveImage.getId();
     }
 
@@ -110,5 +109,15 @@ public class S3Service {
         if (multipartFile == null) {
             throw new CustomApiException("이미지가 첨부되지 않았습니다.");
         }
+    }
+
+
+    // 상품 이미지 조회
+    public List<String> inquiryProductImage(Long productId) {
+
+        List<String> ProductImages = imageRepository.findAllByProductId(productId)
+                .stream().map(Image::getFileName).collect(Collectors.toList());
+
+        return ProductImages;
     }
 }

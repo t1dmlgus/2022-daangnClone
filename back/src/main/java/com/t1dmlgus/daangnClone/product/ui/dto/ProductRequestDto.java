@@ -1,7 +1,8 @@
-package com.t1dmlgus.daangnClone.user.ui.dto.product;
+package com.t1dmlgus.daangnClone.product.ui.dto;
 
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
+import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class ProductRequestDto {
                 .title(title)
                 .price(price)
                 .caption(caption)
+                .status(SaleStatus.SALE)
                 .user(user)
                 .build();
     }

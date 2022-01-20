@@ -1,10 +1,15 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- css -->
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/product.css">
     <title>상품페이지</title>
@@ -16,8 +21,8 @@
             <img src="/img/home.png" alt="home">
         </a>
         <section id="sec_01">
-            <div class="product_img">
-                <img src="/img/product01.png" alt="상품이미지">
+            <div class="product_img" th:each="image : ${product.images}">
+                <img src="/img/product01.png" alt="f2" th:src="${image}">
             </div>
         </section>
         <!-- swiper -->
@@ -25,49 +30,45 @@
         <section id="sec_02">
             <div class="profile">
                 <img src="/img/profile.png" alt="프로필">
-                <span class="nickName">닉네임</span>
+                <span class="nickName" th:text="${product.nickName}">닉네임</span>
             </div>
             <div class="prod_desc">
                 <div>
-                    <span class="title">제목</span>
-                    <span class="price">가격</span>
+                    제목 <span class="title" th:text="${product.title}">제목</span>
                 </div>
                 <div>
-                    <span class="category">카테고리</span>
-                    <span class="uploadTime">게시시간</span>
+                    가격 <span class="price" th:text="${product.price}">가격</span>
                 </div>
-                <div class="cont">본문</div>
-                <div class="likes">관심 n</div>
+                <div>
+                   카테고리 <span class="category" th:text="${product.category}">카테고리</span>
+                </div>
+                <div>
+                   게시시간 <span class="uploadTime" th:text="${product.createTime}">게시시간</span>
+                </div>
+                <div>
+                    본문 <div class="cont" th:text="${product.caption}">본문</div>
+                </div>
+                <div>
+                    관심 <div class="likes"> n</div>
+                </div>
             </div>
         </section>
         <!-- sec_02 -->
         <section id="sec_03">
             <div class="product_caption clear">
-                <strong>닉네님의 판매 상품</strong>
+                <strong th:text="${product.nickName}">닉네님</strong>의 판매 상품
                 <a class="showall" href="/product/all" >모두보기</a>
             </div>
             <div class="products">
-                <a>
-                    <img src="/img/product01.png" alt="상품이미지01">
-                    <span>제목</span>
-                    <span>가격</span>
-                </a>
-                <a>
-                    <img src="/img/product02.png" alt="상품이미지02">
-                    <span>제목</span>
-                    <span>가격</span>
-                </a>
-                <a>
-                    <img src="/img/product03.png" alt="상품이미지03">
-                    <span>제목</span>
-                    <span>가격</span>
-                </a>
-                <a>
-                    <img src="/img/product04.png" alt="상품이미지04">
-                    <span>제목</span>
-                    <span>가격</span>
-                </a>
+                <div th:each="prod : ${product.t4Prods}">
+                    <a>
+                        <img src="/img/product01.png" th:src="${prod.coverImage}" alt="상품이미지01">
+                    </a>
+                    <span th:text="${prod.title}">제목</span>
+                    <span th:text="${prod.price}">가격</span>
+                </div>
             </div>
+            <!-- content -->
         </section>
         <!-- sec_03 -->
         <section id="sec_04">

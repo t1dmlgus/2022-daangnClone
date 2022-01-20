@@ -1,5 +1,6 @@
 package com.t1dmlgus.daangnClone.product.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.t1dmlgus.daangnClone.BaseTimeEntity;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import lombok.*;
@@ -12,12 +13,11 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "user")
 public class Product extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "Product_id")
     private Long id;
 
     private String title;
@@ -29,18 +29,20 @@ public class Product extends BaseTimeEntity {
 
     private String caption;
 
-    // 거래 상태 -> enum
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private SaleStatus status;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
 
     @Builder
-    public Product(String title, int price, String caption, User user) {
+    public Product(String title, int price, String caption,SaleStatus status, User user) {
         this.title = title;
         this.price = price;
         this.caption = caption;
+        this.status = status;
         this.user = user;
     }
 }
