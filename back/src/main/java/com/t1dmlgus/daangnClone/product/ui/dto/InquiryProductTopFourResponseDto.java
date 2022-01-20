@@ -1,7 +1,6 @@
 package com.t1dmlgus.daangnClone.product.ui.dto;
 
 
-import com.t1dmlgus.daangnClone.product.domain.Image;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;

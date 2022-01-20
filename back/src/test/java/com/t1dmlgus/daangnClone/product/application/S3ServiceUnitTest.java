@@ -1,27 +1,23 @@
 package com.t1dmlgus.daangnClone.product.application;
 
-import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
 import com.t1dmlgus.daangnClone.product.domain.Image;
 import com.t1dmlgus.daangnClone.product.domain.ImageRepository;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
 
 
 @Transactional

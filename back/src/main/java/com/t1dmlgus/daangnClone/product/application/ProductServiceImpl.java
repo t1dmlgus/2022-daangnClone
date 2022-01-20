@@ -1,15 +1,14 @@
 package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
-import com.t1dmlgus.daangnClone.product.domain.Image;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +61,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     // 유저 판매 상폼 조회(top4)
-    public List<InquiryProductTopFourResponseDto> inquiryTopFourProduct(Long userId) {
+    protected List<InquiryProductTopFourResponseDto> inquiryTopFourProduct(Long userId) {
 
         List<InquiryProductTopFourResponseDto> t4Product = new ArrayList<>();
         List<Product> products = productRepository.inquiryProductTopFourByUser(userId);

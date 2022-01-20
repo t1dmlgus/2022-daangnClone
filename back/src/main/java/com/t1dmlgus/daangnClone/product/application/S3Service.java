@@ -13,8 +13,6 @@ import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
 import com.t1dmlgus.daangnClone.product.domain.Image;
 import com.t1dmlgus.daangnClone.product.domain.ImageRepository;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

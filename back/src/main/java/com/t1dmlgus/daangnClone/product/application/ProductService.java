@@ -1,12 +1,9 @@
 package com.t1dmlgus.daangnClone.product.application;
 
-import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 
 public interface ProductService {
