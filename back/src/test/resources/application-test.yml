@@ -1,0 +1,30 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
+
+cloud:
+  aws:
+    credentials:
+      accessKey: test
+      secretKey: test
+    s3:
+      bucket: t1dmlgus-daangn
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
