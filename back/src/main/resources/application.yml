@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: daange-service
-
-  profiles:
-    active: local
-
