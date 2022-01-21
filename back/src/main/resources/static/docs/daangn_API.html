@@ -523,64 +523,95 @@ Content-Length: 181
 </div>
 </div>
 <div class="sect2">
-<h3 id="resources-user-put"><a class="link" href="#resources-user-put">회원 정보 업데이트</a></h3>
+<h3 id="resources-user-put"><a class="link" href="#resources-user-put">회원 유효성 검사</a></h3>
 <div class="sect3">
 <h4 id="_http_request_3"><a class="link" href="#_http_request_3">HTTP request</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/user-api-controller-unit-test/update-user-test/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/user/signup HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json;charset=UTF-8
+Content-Length: 123
+Host: docs.api.com
+
+{
+  "email" : "",
+  "password" : "1234",
+  "name" : "이의현",
+  "phone" : "2232-1234",
+  "nickName" : "t1dmlgus"
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_http_response_3"><a class="link" href="#_http_response_3">HTTP response</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/user-api-controller-unit-test/update-user-test/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+Content-Length: 107
+
+{
+  "message" : "유효성 검사 실패",
+  "data" : {
+    "email" : "email을 적어주세요"
+  }
+}</code></pre>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_2"><a class="link" href="#_request_fields_2">request-fields</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/user-api-controller-unit-test/update-user-test/request-fields.adoc[]</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="resources-image"><a class="link" href="#resources-image">이미지 API</a></h2>
+<h2 id="resources-image"><a class="link" href="#resources-image">상품 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="resources-image-put"><a class="link" href="#resources-image-put">이미지 업로드</a></h3>
+<h3 id="resources-image-put"><a class="link" href="#resources-image-put">상품 등록</a></h3>
 <div class="sect3">
 <h4 id="_http_request_4"><a class="link" href="#_http_request_4">HTTP request</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/image-api-controller-unit-test/upload-image-test/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/product/register HTTP/1.1
+Content-Type: multipart/form-data; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Accept: application/json;charset=UTF-8
+Host: docs.api.com
+
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=title
+
+상품명
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=price
+
+100
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=caption
+
+본문
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+Content-Disposition: form-data; name=file; filename=파일명.jpeg
+Content-Type: image/jpeg
+
+이미지파일
+--6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_http_response_4"><a class="link" href="#_http_response_4">HTTP response</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/image-api-controller-unit-test/upload-image-test/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Content-Length: 70
+
+{
+  "message" : "상품이 등록되었습니다.",
+  "data" : 16
+}</code></pre>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_3"><a class="link" href="#_request_fields_3">request-fields</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/image-api-controller-unit-test/upload-image-test/request-parameters.adoc[]</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="resources-image-get"><a class="link" href="#resources-image-get">스토리 이미지 조회</a></h3>
-<div class="sect3">
-<h4 id="_http_request_5"><a class="link" href="#_http_request_5">HTTP request</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/image-api-controller-unit-test/get-story-test/http-request.adoc[]</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_http_response_5"><a class="link" href="#_http_response_5">HTTP response</a></h4>
-<div class="paragraph">
-<p>Unresolved directive in daangn_API.adoc - include::C:\Users\t1dmlgus\Desktop\2022-daangnClone\back\build\generated-snippets/image-api-controller-unit-test/get-story-test/http-response.adoc[]</p>
 </div>
 </div>
 </div>
@@ -590,7 +621,7 @@ Content-Length: 181
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-01-17 21:25:32 +0900
+Last updated 2022-01-17 21:52:12 +0900
 </div>
 </div>
 </body>
