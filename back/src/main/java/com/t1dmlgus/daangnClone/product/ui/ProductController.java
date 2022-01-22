@@ -19,7 +19,11 @@ public class ProductController {
 
     // 랜딩 페이지
     @GetMapping("/randing")
-    public String randing(){
+    public String randing(Model model) {
+
+        ResponseDto<?> product = productService.allProduct();
+        model.addAttribute("product", product.getData());
+
         return "product/randing";
     }
 
@@ -37,6 +41,13 @@ public class ProductController {
     @GetMapping("/all")
     public String allProduct(){
         return "product/all";
+    }
+
+
+    // 상품 등록
+    @GetMapping("/register")
+    public String registerProduct(){
+        return "product/register";
     }
 
 }
