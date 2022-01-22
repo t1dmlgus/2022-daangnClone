@@ -10,16 +10,23 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-
-@ToString(exclude = "product")
+@Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Entity
+@ToString(exclude = "product")
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "id",
+                        columnNames = {"product_Id", "user_Id"}
+                )
+        }
+)
 public class Likes extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
