@@ -12,12 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 public class InquiryProductTopFourResponseDto {
 
+    private Long productId;
+
     private String title;
     private int price;
 
     private String coverImage;
 
     public InquiryProductTopFourResponseDto(Product product, String coverImage) {
+        this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.coverImage = coverImage;

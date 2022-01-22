@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="#" class="back">
+        <a href="#" onClick="history.back()" class="back">
             <img src="/img/left-arrow.png" alt="화살표">
             <img src="/img/home.png" alt="home">
         </a>
@@ -34,19 +34,19 @@
             </div>
             <div class="prod_desc">
                 <div>
-                    제목 <span class="title" th:text="${product.title}">제목</span>
+                    <span class="title" th:text="${product.title}">제목</span>
                 </div>
                 <div>
-                    가격 <span class="price" th:text="${product.price}">가격</span>
+                    <span class="price" th:text="${product.price}">가격</span>원
                 </div>
                 <div>
-                   카테고리 <span class="category" th:text="${product.category}">카테고리</span>
+                    <span class="category" th:text="${product.category}">카테고리</span>
                 </div>
                 <div>
-                   게시시간 <span class="uploadTime" th:text="${product.createTime}">게시시간</span>
+                    <span class="uploadTime" th:text="${product.createTime}">게시시간</span>
                 </div>
                 <div>
-                    본문 <div class="cont" th:text="${product.caption}">본문</div>
+                     <div class="cont" th:text="${product.caption}">본문</div>
                 </div>
                 <div>
                     관심 <div class="likes"> n</div>
@@ -61,7 +61,7 @@
             </div>
             <div class="products">
                 <div th:each="prod : ${product.t4Prods}">
-                    <a>
+                    <a th:href="|/product/${prod.productId}|">
                         <img src="/img/product01.png" th:src="${prod.coverImage}" alt="상품이미지01">
                     </a>
                     <span th:text="${prod.title}">제목</span>

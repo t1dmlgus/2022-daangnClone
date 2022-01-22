@@ -39,6 +39,7 @@ public class InquiryProductResponseDto {
         this.price = product.getPrice();
         this.category = product.getCategory();
         this.createTime = product.getCreatedDate();
+        this.category = product.getCategory();
         this.status = product.getStatus();
         this.nickName = product.getUser().getNickName();
         this.caption = product.getCaption();
