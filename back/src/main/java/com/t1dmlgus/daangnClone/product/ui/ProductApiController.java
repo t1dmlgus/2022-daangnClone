@@ -27,6 +27,8 @@ public class ProductApiController {
     @PostMapping("/register")
     public ResponseEntity<?> register(ProductRequestDto productRequestDto, @RequestPart(value = "file") MultipartFile file, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
+        logger.info("productRequestDto222, {}", productRequestDto);
+
         ResponseDto<?> registerDto = productService.registerProduct(productRequestDto, file, principalDetails.getUser());
         logger.info(SecurityContextHolder.getContext().toString());
 

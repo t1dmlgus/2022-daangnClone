@@ -1,12 +1,19 @@
+
 // 상품 등록
 function registerProduct(evt) {
 
     evt.preventDefault();
 
     var data = $("#upload-form")[0];
-    //let data = $("#upload-form").serializeObject();
+    var category = $("#category").val();
     var formData = new FormData(data);
-    console.log(formData);
+
+    for (let key of formData.keys()) {
+           console.log(key);
+    }
+    for(let value of formData.values()){
+        console.log(value);
+    }
 
     $.ajax({
         type:"POST",
@@ -20,7 +27,7 @@ function registerProduct(evt) {
     }).done(res=>{
         console.log(res);
         alert(res.message);
-        location.href=`/product/randing`;
+        //location.href=`/product/randing`;
     }).fail(error=>{
         console.log(error);
         alert(JSON.stringify(error.responseText));
