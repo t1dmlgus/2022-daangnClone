@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,89 +23,21 @@
             </div>
         </section>
         <!-- header -->
-        <section id="sec_content">
+        <section id="sec_content" th:each="product : ${product}">
             <div class="cont">
-                <a href="#" class="cont_img">
-                    <img src="/img/product01.png" alt="상품_이미지">
+                <a th:href="|/product/${product.productId}|" class="cont_img">
+                    <img src="/img/product01.png" th:src="${product.coverImage}" alt="상품_이미지">
                 </a>
                 <div class="cont_desc">
                     <div>
-                        <div class="title">제목</div>
-                        <div class="location">장소</div>
-                        <div class="price">가격</div>
+                        <div class="title" th:text="${product.title}">제목</div>
+                        <div class="location" style="color: #ccc">장소</div>
+                        <div class="price" th:text="${product.price}"> 가격</div>
                     </div> 
                     <div class="service">
                         <a href="#" class="comment"><img src="/img/comment.png" alt="댓글">n</a>
-                        <a class="likes"><img src="/img/likes.png" alt="좋아요">n</a>
-                    </div>
-                </div>
-            </div>
-            <!-- content-->    
-            <div class="cont">
-                <a href="#" class="cont_img">
-                    <img src="/img/product01.png" alt="상품_이미지">
-                </a>
-                <div class="cont_desc">
-                    <div>
-                        <div class="title">제목</div>
-                        <div class="location">장소</div>
-                        <div class="price">가격</div>
-                    </div> 
-                    <div class="service">
-                        <a href="#" class="comment"><img src="/img/comment.png" alt="댓글">n</a>
-                        <a class="likes"><img src="/img/likes.png" alt="좋아요">n</a>
-                    </div>
-                </div>
-            </div>
-            <!-- content-->
-            <div class="cont">
-                <a href="#" class="cont_img">
-                    <img src="/img/product01.png" alt="상품_이미지">
-                </a>
-                <div class="cont_desc clear">
-                    <div>
-                        <div class="title">제목</div>
-                        <div class="location">장소</div>
-                        <div class="price">가격</div>
-                    </div> 
-                    <div class="service">
-                        <a href="#" class="comment"><img src="/img/comment.png" alt="댓글">n</a>
-                        <a class="likes"><img src="/img/likes.png" alt="좋아요">n</a>
-                    </div>
-                </div>
-            </div>
-            <!-- content-->
-            <div class="cont">
-                <a href="#" class="cont_img">
-                    <img src="/img/product01.png" alt="상품_이미지">
-                </a>
-                <div class="cont_desc clear">
-                    <div>
-                        <div class="title">제목</div>
-                        <div class="location">장소</div>
-                        <div class="price">가격</div>
-                    </div> 
-                    <div class="service">
-                        <a href="#" class="comment"><img src="/img/comment.png" alt="댓글">n</a>
-                        <a class="likes"><img src="/img/likes.png" alt="좋아요">n</a>
-                    </div>
-                </div>
-            </div>
-            <!-- content-->
-
-            <div class="cont">
-                <a href="#" class="cont_img">
-                    <img src="/img/product01.png" alt="상품_이미지">
-                </a>
-                <div class="cont_desc clear">
-                    <div>
-                        <div class="title">제목</div>
-                        <div class="location">장소</div>
-                        <div class="price">가격</div>
-                    </div> 
-                    <div class="service">
-                        <a href="#" class="comment"><img src="/img/comment.png" alt="댓글">n</a>
-                        <a class="likes"><img src="/img/likes.png" alt="좋아요">n</a>
+                        <a class="likes">
+                            <img src="/img/likes.png" alt="좋아요">n</a>
                     </div>
                 </div>
             </div>
@@ -113,8 +45,11 @@
         </section>
         
         <section id="sec_footer">
+            <a class="btn_register" href="/product/register">
+                <img src="/img/plus (1).png" alt="">
+            </a>
             <div class="clear">
-                <a class="home">
+                <a class="home" href="/">
                     <img src="/img/home.png" alt="home">
                     <span>홈</span>
                 </a>
