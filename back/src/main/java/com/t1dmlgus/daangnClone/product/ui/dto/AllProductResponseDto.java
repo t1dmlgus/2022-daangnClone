@@ -6,20 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InquiryProductTopFourResponseDto {
+public class AllProductResponseDto {
 
     private Long productId;
-
     private String title;
     private int price;
 
     private String coverImage;
 
-    public InquiryProductTopFourResponseDto(Product product, String coverImage) {
+    public AllProductResponseDto(Product product, String coverImage) {
         this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();

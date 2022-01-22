@@ -3,6 +3,8 @@ package com.t1dmlgus.daangnClone.product.ui;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProductController {
 
+    Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     private final ProductService productService;
 
     // 랜딩 페이지
@@ -22,6 +26,9 @@ public class ProductController {
     public String randing(Model model) {
 
         ResponseDto<?> product = productService.allProduct();
+
+        logger.info("product.getData() {}", product.getData());
+
         model.addAttribute("product", product.getData());
 
         return "product/randing";
@@ -31,8 +38,9 @@ public class ProductController {
     @GetMapping("/{productId}")
     public String productDetail(@PathVariable Long productId, Model model){
 
-        ResponseDto<?> product = productService.inquiryProduct(productId);
-        model.addAttribute("product", product.getData());
+        ResponseDto<?> productDetails = productService.inquiryProduct(productId);
+        logger.info("productDetails {}", productDetails);
+        model.addAttribute("product", productDetails.getData());
 
         return "product/product";
     }

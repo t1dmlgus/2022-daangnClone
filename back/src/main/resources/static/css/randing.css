@@ -26,3 +26,6 @@
 #sec_footer >div >a{display: inline-block; width: 48%; text-align: center;}
 #sec_footer >div >a img{width: 30px;}
 #sec_footer >div >a span{display: block;}
+
+#sec_footer a.btn_register{ width: 20px;display: inline-block;position: absolute;right: 46px;}
+#sec_footer a.btn_register img{background:coral; padding:10px; border-radius: 50%}

@@ -14,6 +14,9 @@ public interface ProductService {
     // 상품 조회
     ResponseDto<?> inquiryProduct(Long productId);
 
+    // 전체 상품 조회(최신순)
+    ResponseDto<?> allProduct();
+
     // 상품 수정
 
     // 상품 삭제
