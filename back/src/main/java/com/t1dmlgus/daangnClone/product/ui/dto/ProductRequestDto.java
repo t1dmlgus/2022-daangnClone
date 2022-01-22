@@ -19,8 +19,7 @@ public class ProductRequestDto {
     @NotBlank(message = "제목을 입력해주세요")
     private String title;
 
-    //@NotBlank(message = "카테고리를 골라주세요")
-    private Category category;
+    private String category;
 
     @NotBlank(message = "가격을 입력해주세요")
     private int price;
@@ -35,8 +34,12 @@ public class ProductRequestDto {
                 .title(title)
                 .price(price)
                 .caption(caption)
+                .category(Category.valueOf(category))
                 .status(SaleStatus.SALE)
                 .user(user)
                 .build();
     }
+
+
+
 }

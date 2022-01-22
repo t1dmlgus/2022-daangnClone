@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>상품등록 페이지</title>
+</head>
+<body>
+    <div class="container">
+        <a href="#" class="back">
+            <img src="/img/left-arrow.png" alt="화살표">
+            <h3>중고거래 글쓰기</h3>
+        </a>
+        <!-- sec_01 action="/api/product/register" method="post" enctype="multipart/form-data" -->
+        <section id="sec_01">
+            <form id="upload-form" onsubmit="registerProduct(event)" >
+                <input  type="file" name="file"/>
+                
+                <div class="upload-img">
+
+                </div>
+                <!-- 상품 등록 -->
+                <div class="upload-form-detail">
+                     <input type="text" placeholder="상품명" name="title">
+                     <input type="text" placeholder="가격" name="price">
+                     <input type="text" placeholder="상품설명" name="caption">
+                     <select name="category" id="category">
+                         <option selected disabled>카테고리</option>
+                         <option value="DIGITAL_DEVICE">디지털 기기</option>
+                         <option value="HOME_APPLIANCES">생활가전</option>
+                         <option value="FURNITURE_INTERIOR">가구/인테리어</option>
+                         <option value="CHILD">유아</option>
+                         <option value="LIFE_PROCESSED_FOOD">생활/가공식품</option>
+                         <option value="CHILDREN_BOOKS">유아도서</option>
+                         <option value="WOMEN_CLOTHING">여성의류</option>
+                         <option value="MEN_CLOTHING">남성의류</option>
+                         <option value="GAME_HOBBY">게임/취미</option>
+                         <option value="BEAUTY">뷰티</option>
+                         <option value="PET_SUPPLIES">반려동물용품</option>
+                         <option value="BOOK_TICKET_ALBUM">도서/티켓/음반</option>
+                         <option value="PLANT">식물</option>
+                         <option value="OTHER_USED_GOODS">기타 중고용품</option>
+                         <option value="USED_CAR">중고차</option>
+                     </select>   
+                    <button class="btn_upload">완료</button>
+                </div>
+                <!-- 상품 등록 end-->
+            </form>
+        </section>
+    </div>
+    <script src="/js/registerProduct.js"></script>
+  </body>
+  
+</html>
