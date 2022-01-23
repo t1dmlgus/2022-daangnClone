@@ -30,4 +30,15 @@ public class LikesServiceImpl implements LikesService{
 
         return new ResponseDto<>("좋아요가 취소되었습니다.", null);
     }
+
+
+    @Transactional
+    @Override
+    public boolean checkLikesStatus(Long productId, Long userId) {
+
+        return likesRepository.existsByProductIdAndUserId(productId, userId);
+    }
+
+
+
 }

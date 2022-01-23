@@ -8,6 +8,8 @@ import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
+import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,6 +56,11 @@ class ProductApiControllerTest {
     @MockBean
     private ProductService productService;
 
+    private static User testUser;
+    private static Product testProduct;
+    private static ProductRequestDto productRequestDto;
+    private static MockMultipartFile file;
+
     @BeforeEach
     void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
@@ -62,6 +69,11 @@ class ProductApiControllerTest {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+
+        testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER);
+        testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
+        productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
+        file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
     }
 
     
@@ -98,20 +110,19 @@ class ProductApiControllerTest {
     @WithMockCustomUser
     public void inquiryProductTest() throws Exception{
         //given
-        Long productId = 21L;
-        Product testProduct = new Product(21L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, new User());
+        boolean likeStatus = true;
         List<String> productImages = new ArrayList<>();
         List<InquiryProductTopFourResponseDto> t4Prod = new ArrayList<>();
 
-        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, t4Prod);
+        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, likeStatus, t4Prod);
 
         doReturn(new ResponseDto<>("조회한 상품입니다.", inquiryProductResponseDto))
-                .when(productService).inquiryProduct(productId);
+                .when(productService).inquiryProduct(testProduct.getId(), testUser.getId());
 
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                get("/api/product/{productId}", productId)
+                get("/api/product/{productId}", testProduct.getId())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
         );

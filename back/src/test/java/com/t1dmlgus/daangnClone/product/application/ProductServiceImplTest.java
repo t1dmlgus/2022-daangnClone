@@ -1,5 +1,6 @@
 package com.t1dmlgus.daangnClone.product.application;
 
+import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -37,6 +38,8 @@ class ProductServiceImplTest {
     private ProductRepository productRepository;
     @Mock
     private S3Service s3service;
+    @Mock
+    private LikesService likesService;
 
     private static User testUser;
     private static Product testProduct;
@@ -70,9 +73,10 @@ class ProductServiceImplTest {
         //given
         doReturn(Optional.of(testProduct)).when(productRepository).findById(any(Long.class));
         doReturn(new ArrayList<>()).when(s3service).inquiryProductImage(any(Long.class));
+        doReturn(true).when(likesService).checkLikesStatus(testProduct.getId(), testUser.getId());
 
         //when
-        ResponseDto<?> product = productServiceImpl.inquiryProduct(testProduct.getId());
+        ResponseDto<?> product = productServiceImpl.inquiryProduct(testProduct.getId(), testUser.getId());
         //then
         assertThat(product.getMessage()).isEqualTo("조회한 상품입니다.");
 

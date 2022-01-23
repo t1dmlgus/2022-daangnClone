@@ -15,5 +15,7 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
     @Query(value = "DELETE FROM likes WHERE product_Id =:productId AND user_Id = :userId", nativeQuery = true)
     void unLikes(@Param("productId") Long productId, @Param("userId") Long userId);
 
+    //@Query(value = "select EXISTS (select * from likes where product_id=:productId AND user_id=:userId) as success", nativeQuery = true)
+    boolean existsByProductIdAndUserId(Long productId, Long userId);
 
 }

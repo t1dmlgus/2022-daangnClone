@@ -15,6 +15,8 @@ import java.util.List;
 @Data
 public class InquiryProductResponseDto {
 
+    private Long productId;
+
     private String title;
 
     private int price;
@@ -33,8 +35,11 @@ public class InquiryProductResponseDto {
 
     List<InquiryProductTopFourResponseDto> t4Prods;
 
-    public InquiryProductResponseDto(Product product, List<String> images, List<InquiryProductTopFourResponseDto> t4Prod) {
+    private boolean likeStatus;
 
+    public InquiryProductResponseDto(Product product, List<String> images, boolean likeStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
+
+        this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.category = product.getCategory();
@@ -44,7 +49,7 @@ public class InquiryProductResponseDto {
         this.nickName = product.getUser().getNickName();
         this.caption = product.getCaption();
         this.images = images;
-
+        this.likeStatus = likeStatus;
         this.t4Prods = t4Prod;
 
     }

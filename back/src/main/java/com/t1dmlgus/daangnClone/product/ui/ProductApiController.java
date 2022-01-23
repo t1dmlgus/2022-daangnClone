@@ -37,9 +37,9 @@ public class ProductApiController {
 
     // 상품 조회
     @GetMapping("/{productId}")
-    public ResponseEntity<?> inquiryProduct(@PathVariable Long productId) {
+    public ResponseEntity<?> inquiryProduct(@PathVariable Long productId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        ResponseDto<?> productDetailDto = productService.inquiryProduct(productId);
+        ResponseDto<?> productDetailDto = productService.inquiryProduct(productId, principalDetails.getUser().getId());
 
         return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
 

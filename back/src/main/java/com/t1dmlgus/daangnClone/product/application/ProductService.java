@@ -12,7 +12,7 @@ public interface ProductService {
     ResponseDto<?> registerProduct(ProductRequestDto productRequestDto, MultipartFile multipartFile, User user);
 
     // 상품 조회
-    ResponseDto<?> inquiryProduct(Long productId);
+    ResponseDto<?> inquiryProduct(Long productId, Long userId);
 
     // 전체 상품 조회(최신순)
     ResponseDto<?> allProduct();

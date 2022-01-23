@@ -10,4 +10,8 @@ public interface LikesService {
 
     // 좋아요 취소
     ResponseDto<?> unLikes(Long productId, Long userId);
+
+    // 좋아요 상태확인
+    boolean checkLikesStatus(Long productId, Long userId);
+
 }

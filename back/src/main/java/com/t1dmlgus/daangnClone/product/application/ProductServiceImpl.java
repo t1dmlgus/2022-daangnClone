@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
+import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
@@ -28,6 +29,7 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
     private final S3Service s3Service;
+    private final LikesService likesService;
 
     Logger logger = LoggerFactory.getLogger(ProductApiController.class);
 
@@ -49,7 +51,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public ResponseDto<?> inquiryProduct(Long productId) {
+    public ResponseDto<?> inquiryProduct(Long productId, Long userId) {
         // 1. 상품 get
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> { return new CustomApiException("해당 상품은 없습니다.");});
@@ -58,8 +60,11 @@ public class ProductServiceImpl implements ProductService{
         List<String> productImages = s3Service.inquiryProductImage(productId);
         // 3. 해당 유저에 관한 상품(top4) get
         List<InquiryProductTopFourResponseDto> t4Prod = inquiryTopFourProduct(product.getUser().getId());
+        // 4. 상품에 대한 세션유저의 좋아요 상태 확인
+        boolean likesStatus = likesService.checkLikesStatus(productId, userId);
 
-        return new ResponseDto<>("조회한 상품입니다.", new InquiryProductResponseDto(product, productImages, t4Prod));
+
+        return new ResponseDto<>("조회한 상품입니다.", new InquiryProductResponseDto(product, productImages,likesStatus, t4Prod));
     }
 
 

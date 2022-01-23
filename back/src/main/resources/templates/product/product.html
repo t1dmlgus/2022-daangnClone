@@ -73,10 +73,15 @@
         <!-- sec_03 -->
         <section id="sec_04">
             <div class="icon">
-                <a class="likebtn" href="#">
-                    <img src="/img/likes.png" alt="좋아요이미지">
-                </a>
-                <div class="commentbtn">
+                <div class="likebtn" id="likebtn" th:val="${product.productId}">
+                    <div th:if="${product.likeStatus}" th:val="${product.likeStatus}">
+                        <img src="/img/heart.png" alt="좋아요이미지" >
+                    </div>
+                    <div th:unless="${product.likeStatus}" th:val="${product.likeStatus}">
+                        <img src="/img/likes.png" alt="좋아요이미지" >
+                    </div>
+                </div>
+                <div class="commentbtn" id="commentbtn">
                     <img src="/img/comment.png" alt="댓글 이미지">
                 </div>
             </div>
@@ -86,7 +91,8 @@
             </div>
         </section>
         <!-- sec_04 --> 
-    </div> 
+    </div>
+    <script src="/js/product.js"></script>
   </body>
   
 </html>
