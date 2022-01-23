@@ -1,15 +1,12 @@
 package com.t1dmlgus.daangnClone.likes.application;
 
 
-import com.t1dmlgus.daangnClone.likes.domain.Likes;
 import com.t1dmlgus.daangnClone.likes.domain.LikesRepository;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
-import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Transactional
