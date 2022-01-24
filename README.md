@@ -68,7 +68,7 @@
 <br>
 
 # 5. Info
-- [서비스 바로가기](http://ec2-3-36-197-4.ap-northeast-2.compute.amazonaws.com:8080)
+- [서비스 바로가기](http://ec2-3-35-65-253.ap-northeast-2.compute.amazonaws.com:8080/)
 - [프로젝트 문서 바로가기](https://github.com/t1dmlgus/2022-daangnClone/wiki)
 - [블로그 바로가기](https://www.notion.so/795c6812102a495f9fc78ef8640b642d)
 - dmlgusgngl@gmail.com
