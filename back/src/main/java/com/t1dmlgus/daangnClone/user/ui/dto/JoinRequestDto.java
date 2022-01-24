@@ -29,6 +29,8 @@ public class JoinRequestDto {
     @NotBlank(message = "닉네임을 적어주세요")
     private String nickName;
 
+    private String place;
+
     public User toEntity(){
 
         return User.builder()
@@ -37,6 +39,7 @@ public class JoinRequestDto {
                 .name(name)
                 .phone(phone)
                 .nickName(nickName)
+                .place(place)
                 .build();
     }
 
