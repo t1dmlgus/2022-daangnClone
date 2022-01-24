@@ -48,7 +48,7 @@ class ProductServiceImplTest {
 
     @BeforeAll
     static void beforeAll() {
-        testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER);
+        testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER, "박달1동");
         testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
         productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
         file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
