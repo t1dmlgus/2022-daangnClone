@@ -29,6 +29,7 @@ public class JoinRequestDto {
     @NotBlank(message = "닉네임을 적어주세요")
     private String nickName;
 
+    @NotBlank(message = "사는동네를 적어주세요")
     private String place;
 
     public User toEntity(){

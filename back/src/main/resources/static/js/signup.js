@@ -37,7 +37,7 @@ function join(evt) {
         location.href=`/`;
     }).fail(error=>{
         console.log(error);
-        alert(JSON.stringify(error.responseText));
+        alert(error.responseJSON.data.email);
     });
 
 }
