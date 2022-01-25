@@ -12,7 +12,7 @@ import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
-import com.t1dmlgus.daangnClone.util.BeforeTime;
+import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService{
         for (Product product : productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))) {
 
             // 1. 몇분 전
-            String beforeTime = getRegisterProduct(product);
+            String beforeTime = getRegisterProduct(product.getCreatedDate());
 
             // 2. 상품 좋아요 정보(상태, 카운트) 조회
             ProductLikesStatus productLikesStatus = getProductLikesStatus(userId, product.getId());
@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService{
 
 
     // 몇분 전 기능
-    private String getRegisterProduct(Product product) {
-        return BeforeTime.calculateTime(product.getCreatedDate());
+    protected String getRegisterProduct(LocalDateTime localDateTime) {
+        return RegisterProductTimeFromNow.calculateTime(localDateTime);
     }
 
     // 상품 좋아요 정보(상태, 카운트) 조회
