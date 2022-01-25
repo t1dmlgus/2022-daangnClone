@@ -3,6 +3,7 @@ package com.t1dmlgus.daangnClone.product.ui;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.t1dmlgus.daangnClone.auth.WithMockCustomUser;
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -110,11 +111,11 @@ class ProductApiControllerTest {
     @WithMockCustomUser
     public void inquiryProductTest() throws Exception{
         //given
-        boolean likeStatus = true;
+        ProductLikesStatus productLikesStatus = new ProductLikesStatus();
         List<String> productImages = new ArrayList<>();
         List<InquiryProductTopFourResponseDto> t4Prod = new ArrayList<>();
 
-        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, likeStatus, t4Prod);
+        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, productLikesStatus, t4Prod);
 
         doReturn(new ResponseDto<>("조회한 상품입니다.", inquiryProductResponseDto))
                 .when(productService).inquiryProduct(testProduct.getId(), testUser.getId());

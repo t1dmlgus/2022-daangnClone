@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.likes.application.LikesService;
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -8,23 +9,23 @@ import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 
 
 @Transactional
@@ -41,6 +42,9 @@ class ProductServiceImplTest {
     @Mock
     private LikesService likesService;
 
+    private RegisterProductTimeFromNow registerProductTimeFromNow;
+    private static MockedStatic<RegisterProductTimeFromNow> mockedRegisterProductTimeFromNow;
+
     private static User testUser;
     private static Product testProduct;
     private static ProductRequestDto productRequestDto;
@@ -52,6 +56,18 @@ class ProductServiceImplTest {
         testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
         productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
         file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
+
+        mockedRegisterProductTimeFromNow = mockStatic(RegisterProductTimeFromNow.class);
+    }
+
+    @AfterAll
+    static void afterAll(){
+        mockedRegisterProductTimeFromNow.close();
+    }
+
+    @BeforeEach
+    public void setUp(){
+        registerProductTimeFromNow = new RegisterProductTimeFromNow();
     }
 
     @DisplayName("서비스 - 상품 등록 테스트")
@@ -73,7 +89,7 @@ class ProductServiceImplTest {
         //given
         doReturn(Optional.of(testProduct)).when(productRepository).findById(any(Long.class));
         doReturn(new ArrayList<>()).when(s3service).inquiryProductImage(any(Long.class));
-        doReturn(true).when(likesService).checkLikesStatus(testProduct.getId(), testUser.getId());
+        doReturn(new ProductLikesStatus()).when(likesService).productLikesStatus(testProduct.getId(), testUser.getId());
 
         //when
         ResponseDto<?> product = productServiceImpl.inquiryProduct(testProduct.getId(), testUser.getId());
@@ -87,11 +103,25 @@ class ProductServiceImplTest {
     @Test
     public void allProductTest() throws Exception{
         //given
-
         //when
-
-
+        ResponseDto<?> allProductDtos = productServiceImpl.allProduct(testUser.getId());
         //then
+        assertThat(allProductDtos.getMessage()).isEqualTo("상품을 전체 조회합니다.");
+    }
+
+    @DisplayName("서비스 - 몇분 전 테스트")
+    @Test
+    public void registerProductCreateDate() throws Exception{
+
+        // RegisterProductTimeFromNow 테스트도 따로 필요할 듯
+        //given
+        when(RegisterProductTimeFromNow.calculateTime(any()))
+                .thenReturn("50초 전");
+        //when
+        String time = productServiceImpl.getRegisterProduct(LocalDateTime.now());
+        //then
+        assertThat(time).isEqualTo("50초 전");
+
     }
 
 }
