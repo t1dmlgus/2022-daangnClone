@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.likes.application;
 
 
 import com.t1dmlgus.daangnClone.likes.domain.LikesRepository;
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
 import com.t1dmlgus.daangnClone.user.domain.Role;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 
 @Transactional
@@ -67,5 +69,48 @@ class LikesServiceImplTest {
     }
 
 
+    @DisplayName("서비스 - 상품에 대한 좋아요 정보(상태, 카운트) 테스트")
+    @Test
+    public void productLikesStatusTest() throws Exception{
+        //given
+        when(likesRepository.existsByProductIdAndUserId(testProduct.getId(), testUser.getId()))
+                .thenReturn(true);
+        when(likesRepository.countByProductId(testProduct.getId()))
+                .thenReturn(5);
+
+        //when
+        ProductLikesStatus productLikesStatus = likesServiceImpl.productLikesStatus(testProduct.getId(), testUser.getId());
+
+        //then
+        assertThat(productLikesStatus.isLikesStatus()).isEqualTo(true);
+        assertThat(productLikesStatus.getLikesCount()).isEqualTo(5);
+    }
+
+    @DisplayName("서비스 - 좋아요 상태 테스트")
+    @Test
+    public void checkLikesStatusTest() throws Exception{
+        //given
+        when(likesRepository.existsByProductIdAndUserId(testProduct.getId(), testUser.getId()))
+                .thenReturn(true);
+        //when
+        boolean likesStatus = likesServiceImpl.checkLikesStatus(testProduct.getId(), testUser.getId());
+
+        //then
+        assertThat(likesStatus).isEqualTo(true);
+    }
+
+    @DisplayName("서비스 - 좋아요 카운트 테스트")
+    @Test
+    public void countProductLikesTest() throws Exception{
+        //given
+        when(likesRepository.countByProductId(testProduct.getId()))
+                .thenReturn(5);
+
+        //when
+        int countProductLikes = likesServiceImpl.countProductLikes(testProduct.getId());
+
+        //then
+        assertThat(countProductLikes).isEqualTo(5);
+    }
 
 }
