@@ -3,6 +3,7 @@ package com.t1dmlgus.daangnClone.product.ui;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.t1dmlgus.daangnClone.auth.WithMockCustomUser;
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -70,7 +71,7 @@ class ProductApiControllerTest {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
-        testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER);
+        testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER, "박달1동");
         testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
         productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
         file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
@@ -110,11 +111,11 @@ class ProductApiControllerTest {
     @WithMockCustomUser
     public void inquiryProductTest() throws Exception{
         //given
-        boolean likeStatus = true;
+        ProductLikesStatus productLikesStatus = new ProductLikesStatus();
         List<String> productImages = new ArrayList<>();
         List<InquiryProductTopFourResponseDto> t4Prod = new ArrayList<>();
 
-        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, likeStatus, t4Prod);
+        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, productLikesStatus, t4Prod);
 
         doReturn(new ResponseDto<>("조회한 상품입니다.", inquiryProductResponseDto))
                 .when(productService).inquiryProduct(testProduct.getId(), testUser.getId());

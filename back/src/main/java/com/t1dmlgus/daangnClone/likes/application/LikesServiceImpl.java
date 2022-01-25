@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.likes.application;
 
 import com.t1dmlgus.daangnClone.likes.domain.LikesRepository;
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,24 @@ public class LikesServiceImpl implements LikesService{
         return likesRepository.existsByProductIdAndUserId(productId, userId);
     }
 
+    @Transactional
+    @Override
+    public int countProductLikes(Long productId) {
 
+        return likesRepository.countByProductId(productId);
+    }
+
+    @Transactional
+    @Override
+    public ProductLikesStatus productLikesStatus(Long productId, Long userId) {
+
+        // 좋아요 상태(상품에 대한)
+        boolean statusUserLikesProduct = checkLikesStatus(productId, userId);
+        // 좋아요 카운트(상품에 대한)
+        int countProductLikes = countProductLikes(productId);
+
+        return new ProductLikesStatus(statusUserLikesProduct, countProductLikes);
+
+    }
 
 }

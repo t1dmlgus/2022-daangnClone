@@ -18,4 +18,7 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
     //@Query(value = "select EXISTS (select * from likes where product_id=:productId AND user_id=:userId) as success", nativeQuery = true)
     boolean existsByProductIdAndUserId(Long productId, Long userId);
 
+    int countByProductId(Long productId);
+
+
 }

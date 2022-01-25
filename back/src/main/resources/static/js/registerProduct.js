@@ -27,7 +27,7 @@ function registerProduct(evt) {
     }).done(res=>{
         console.log(res);
         alert(res.message);
-        //location.href=`/product/randing`;
+        location.href=`/product/randing`;
     }).fail(error=>{
         console.log(error);
         alert(JSON.stringify(error.responseText));

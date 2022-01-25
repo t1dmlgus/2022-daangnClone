@@ -47,11 +47,15 @@ class UserApiControllerUnitTest {
     private UserService userService;
 
 
+    private JoinRequestDto joinRequestDto;
+
     @BeforeEach
     void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
+
+        joinRequestDto = new JoinRequestDto("", "1234", "이의현", "2232-1234", "t1dmlgus","박달1동");
 
     }
     
@@ -59,8 +63,6 @@ class UserApiControllerUnitTest {
     @Test
     public void JoinUserTest() throws Exception{
         //given
-        JoinRequestDto joinRequestDto = new JoinRequestDto("dmlgusgngl@gmail.com",
-                "1234", "이의현", "2232-1234", "t1dmlgus");
         String json = new ObjectMapper().writeValueAsString(joinRequestDto);
 
 
@@ -89,7 +91,6 @@ class UserApiControllerUnitTest {
     @Test
     public void ValidationUserTest() throws Exception{
         //given
-        JoinRequestDto joinRequestDto = new JoinRequestDto("", "1234", "이의현", "2232-1234", "t1dmlgus");
         String json = new ObjectMapper().writeValueAsString(joinRequestDto);
 
 

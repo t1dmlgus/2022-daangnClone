@@ -6,6 +6,7 @@ import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import com.t1dmlgus.daangnClone.user.ui.dto.JoinRequestDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,13 +36,20 @@ class UserServiceImplUnitTest {
     private UserRepository userRepository;
     @Spy
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
+    private JoinRequestDto joinRequestDto;
+    private User testUser;
+
+    @BeforeEach
+    void setUp() {
+        joinRequestDto = new JoinRequestDto("dmlgusgngl@gmail.com", "1234", "이의현", "2232-1234", "t1dmlgus", "박달1동");
+        testUser = new User("dmlgusgngl@gmail.com", "1234", "이의현", "1234-1234", "t1dmlgus", Role.ROLE_USER, "박달1");
+    }
+
     @DisplayName("서비스 - 회원가입 테스트")
     @Test
     public void joinTest() throws Exception{
         //given
-
-        JoinRequestDto joinRequestDto = new JoinRequestDto("dmlgusgngl@gmail.com", "1234", "이의현", "2232-1234", "t1dmlgus");
         User user = joinRequestDto.toEntity();
         doReturn(user).when(userRepository).save(any(User.class));
 
@@ -109,8 +117,7 @@ class UserServiceImplUnitTest {
     @Test
     public void enquiryUserTest() throws Exception{
         //given
-        User user1 = new User("dmlgusgngl@gmail.com", "1234", "이의현", "1234-1234", "t1dmlgus", Role.ROLE_USER);
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user1));
+        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(testUser));
 
         //when
         ResponseDto<?> enquiryUser = userServiceImpl.enquiry(any(Long.class));

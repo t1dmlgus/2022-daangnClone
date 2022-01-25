@@ -1,5 +1,6 @@
 package com.t1dmlgus.daangnClone.product.ui.dto;
 
+import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -31,13 +32,15 @@ public class InquiryProductResponseDto {
 
     private String caption;
 
+    private String place;
+
     private List<String> images;
 
     List<InquiryProductTopFourResponseDto> t4Prods;
 
     private boolean likeStatus;
 
-    public InquiryProductResponseDto(Product product, List<String> images, boolean likeStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
+    public InquiryProductResponseDto(Product product, List<String> images, ProductLikesStatus productLikesStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
 
         this.productId = product.getId();
         this.title = product.getTitle();
@@ -48,8 +51,9 @@ public class InquiryProductResponseDto {
         this.status = product.getStatus();
         this.nickName = product.getUser().getNickName();
         this.caption = product.getCaption();
+        this.place = product.getUser().getPlace();
         this.images = images;
-        this.likeStatus = likeStatus;
+        this.likeStatus = productLikesStatus.isLikesStatus();
         this.t4Prods = t4Prod;
 
     }

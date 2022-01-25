@@ -25,13 +25,13 @@ public class ProductController {
 
     // 랜딩 페이지
     @GetMapping("/randing")
-    public String randing(Model model) {
+    public String randing(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        ResponseDto<?> product = productService.allProduct();
+        ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId());
 
-        logger.info("product.getData() {}", product.getData());
-
-        model.addAttribute("product", product.getData());
+        logger.info("product.getData() {}", allProductDtos.getData());
+        model.addAttribute("product", allProductDtos.getData());
+        model.addAttribute("user", principalDetails.getUser());
 
         return "product/randing";
     }
