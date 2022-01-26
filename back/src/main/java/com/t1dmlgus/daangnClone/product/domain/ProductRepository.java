@@ -9,7 +9,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT * FROM product WHERE user_Id = :userId\n" +
+            "AND id <> :productId\n "+
             "order by created_date desc\n" +
             "LIMIT 4", nativeQuery = true)
-    List<Product> inquiryProductTopFourByUser(@Param("userId") Long userId);
+    List<Product> inquiryProductTopFourByUser(@Param("productId") Long productId, @Param("userId") Long userId);
 }

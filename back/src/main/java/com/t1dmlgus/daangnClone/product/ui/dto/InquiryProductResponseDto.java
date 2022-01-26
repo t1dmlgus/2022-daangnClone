@@ -17,43 +17,33 @@ import java.util.List;
 public class InquiryProductResponseDto {
 
     private Long productId;
-
     private String title;
-
     private int price;
-
     private Category category;
-
-    private LocalDateTime createTime;
-
-    private SaleStatus status;
-
+    private SaleStatus saleStatus;
     private String nickName;
-
     private String caption;
-
-    private String place;
-
     private List<String> images;
-
     List<InquiryProductTopFourResponseDto> t4Prods;
+    private String place;
+    private boolean likesStatus;
+    private int likesCount;
+    private String registerTime;
 
-    private boolean likeStatus;
-
-    public InquiryProductResponseDto(Product product, List<String> images, ProductLikesStatus productLikesStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
+    public InquiryProductResponseDto(Product product, String registerTime, List<String> images, ProductLikesStatus productLikesStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
 
         this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.category = product.getCategory();
-        this.createTime = product.getCreatedDate();
-        this.category = product.getCategory();
-        this.status = product.getStatus();
+        this.saleStatus = product.getStatus();
         this.nickName = product.getUser().getNickName();
         this.caption = product.getCaption();
-        this.place = product.getUser().getPlace();
         this.images = images;
-        this.likeStatus = productLikesStatus.isLikesStatus();
+        this.place = product.getUser().getPlace();
+        this.registerTime = registerTime;
+        this.likesStatus = productLikesStatus.isLikesStatus();
+        this.likesCount = productLikesStatus.getLikesCount();
         this.t4Prods = t4Prod;
 
     }
