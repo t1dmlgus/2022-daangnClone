@@ -111,11 +111,16 @@ class ProductApiControllerTest {
     @WithMockCustomUser
     public void inquiryProductTest() throws Exception{
         //given
-        ProductLikesStatus productLikesStatus = new ProductLikesStatus();
-        List<String> productImages = new ArrayList<>();
-        List<InquiryProductTopFourResponseDto> t4Prod = new ArrayList<>();
+        String registerTime = "5초 전";
 
-        InquiryProductResponseDto inquiryProductResponseDto = new InquiryProductResponseDto(testProduct, productImages, productLikesStatus, t4Prod);
+        ProductLikesStatus productLikesStatus = new ProductLikesStatus(true, 3);
+        List<String> productImages = new ArrayList<>(List.of("testImageUrl1", "testImageUrl2", "testImageUrl3"));
+        List<InquiryProductTopFourResponseDto> t4Prod =
+                new ArrayList<>(List.of(new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl")
+                , new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl2")));
+
+        InquiryProductResponseDto inquiryProductResponseDto
+                = new InquiryProductResponseDto(testProduct,registerTime, productImages, productLikesStatus, t4Prod);
 
         doReturn(new ResponseDto<>("조회한 상품입니다.", inquiryProductResponseDto))
                 .when(productService).inquiryProduct(testProduct.getId(), testUser.getId());
