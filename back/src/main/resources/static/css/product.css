@@ -11,11 +11,18 @@
 #sec_02{margin:20px 30px; border-bottom: 1px solid #ccc;}
 #sec_02 .profile{padding: 10px 0; border-bottom: 1px solid #ccc;}
 #sec_02 .profile img{width: 40px;}
-#sec_02 .profile span{vertical-align: middle;line-height: 1;}
-#sec_02 .prod_desc{padding-bottom: 15px;}
+#sec_02 .profile >div{display: inline-block; padding: 0 0 0 10px}
+#sec_02 .profile >div span{vertical-align: middle;line-height: 1;display:block}
+#sec_02 .profile >div span.place{font-size:12px; color:darkgray; padding-top:7px}
+#sec_02 .prod_desc{padding:5px 0 15px;}
+#sec_02 .prod_desc >div{padding-bottom: 6px}
 #sec_02 .prod_desc >div span{display: inline-block;}
+#sec_02 .prod_desc >div span.title{font-size: 20px;font-weight: bold;}
+#sec_02 .prod_desc >div span.price{font-weight: bold;}
+#sec_02 .prod_desc >div.gray{font-size:12px; color:#c0c0c0;}
 #sec_02 .prod_desc .cont{height: 80px;}
 #sec_02 .prod_desc .likes{display: inline-block;}
+#sec_02 .prod_desc .price{float: right; font-weight:bold; padding: 0 10px 0;}
 
 #sec_03{margin:20px 30px;}
 #sec_03 .product_caption{padding-bottom: 15px;}
@@ -24,8 +31,9 @@
 #sec_03 .products >div{display: inline-block; width: 46%; margin: 2% 1%;}
 #sec_03 .products >div img{border: 1px solid #000;box-sizing: border-box;}
 #sec_03 .products >div span{display: block; padding: 2px 0;}
+#sec_03 .empty{height:100px}
 
-#sec_04{margin:20px 0px; padding: 10px 0; border-top: 1px solid #ccc;}
+#sec_04{position:fixed; bottom:0; margin:20px 0px 0; padding: 10px 0; border-top: 1px solid #ccc;background:#fff;}
 #sec_04 .icon{width: 40%;display: inline-block;margin: 0 auto;}
 #sec_04 .likebtn{display: inline-block; padding: 0 15px 0 ; width: 25%; vertical-align: baseline; border-right: 1px solid #ccc;}
 #sec_04 .commentbtn{display: inline-block; margin:0 10%; width: 25%;}

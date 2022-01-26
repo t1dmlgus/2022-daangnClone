@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="#" onClick="history.back()" class="back">
+        <a href="/product/randing" class="back">
             <img src="/img/left-arrow.png" alt="화살표">
             <img src="/img/home.png" alt="home">
         </a>
@@ -30,26 +30,29 @@
         <section id="sec_02">
             <div class="profile">
                 <img src="/img/profile.png" alt="프로필">
-                <span class="nickName" th:text="${product.nickName}">닉네임</span>
+                <div>
+                    <span class="nickName" th:text="${product.nickName}">닉네임</span>
+                    <span class="place" th:text="${product.place}">동네</span>
+                </div>
             </div>
-            <div class="prod_desc">
+            <div class="prod_desc clear">
                 <div>
                     <span class="title" th:text="${product.title}">제목</span>
                 </div>
-                <div>
-                    <span class="price" th:text="${product.price}">가격</span>원
-                </div>
-                <div>
-                    <span class="category" th:text="${product.category}">카테고리</span>
-                </div>
-                <div>
-                    <span class="uploadTime" th:text="${product.createTime}">게시시간</span>
+                <div class="gray">
+                    <span class="category" th:text="${product.category.krName}">카테고리</span>
+                    <span>*</span>
+                    <span class="uploadTime" th:text="${product.registerTime}">게시시간</span>
                 </div>
                 <div>
                      <div class="cont" th:text="${product.caption}">본문</div>
                 </div>
-                <div>
-                    관심 <div class="likes"> n</div>
+                <div class="gray">
+                    관심 <div class="likes" th:text="${product.likesCount}">n</div>
+                </div>
+                <div class="price">
+                    <span th:text="${product.price}">가격</span>
+                    <span>원</span>
                 </div>
             </div>
         </section>
@@ -67,22 +70,21 @@
                     <span th:text="${prod.title}">제목</span>
                     <span th:text="${prod.price}">가격</span>
                 </div>
+
             </div>
+            <div class="empty"></div>
             <!-- content -->
         </section>
         <!-- sec_03 -->
         <section id="sec_04">
             <div class="icon">
                 <div class="likebtn" id="likebtn" th:val="${product.productId}">
-                    <div th:if="${product.likeStatus}" th:val="${product.likeStatus}">
+                    <div th:if="${product.likesStatus}" th:val="${product.likesStatus}">
                         <img src="/img/heart.png" alt="좋아요이미지" >
                     </div>
-                    <div th:unless="${product.likeStatus}" th:val="${product.likeStatus}">
+                    <div th:unless="${product.likesStatus}" th:val="${product.likesStatus}">
                         <img src="/img/likes.png" alt="좋아요이미지" >
                     </div>
-                </div>
-                <div class="commentbtn" id="commentbtn">
-                    <img src="/img/comment.png" alt="댓글 이미지">
                 </div>
             </div>
             <div class="comment">

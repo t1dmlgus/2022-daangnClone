@@ -12,10 +12,10 @@
 #sec_content{}
 #sec_content >div{padding: 10px 0; border-top: 1px  solid #ccc;}
 #sec_content >div.cont{}
-#sec_content >div div.cont_img{display: inline-block; width:30%; vertical-align: middle;}
+#sec_content >div div.cont_img{display: inline-block; width:30%; vertical-align: top;}
 #sec_content >div div.cont_desc{display: inline-block; width: 60%; font-size: 14px;vertical-align: middle;}
 #sec_content >div div.cont_desc >div{padding: 0 0 10px 0}
-#sec_content >div div.cont_desc >div >div{font-size:15px;}
+#sec_content >div div.cont_desc >div >div{font-size:14px;}
 #sec_content >div div.cont_desc >div >div.gray1{padding:3px 0; 5px;}
 #sec_content >div div.cont_desc >div >div.gray1 >div{font-size:6px; color:#a3a3a3; display: inline-block}
 #sec_content >div div.cont_desc >div >div.price{display:inline-block; font-weight: bold;}
@@ -27,7 +27,7 @@
 
 /*position: absolute; bottom: 0;left: 0;  고정  */
 
-#sec_footer{position:fixed; bottom:0; width: 100%;background-color: #fff;padding: 10px 0;border-top: 1px solid #ccc;}
+#sec_footer{position:fixed; bottom:0; right:0; width: 100%;background-color: #fff;padding: 10px 0;border-top: 1px solid #ccc;}
 #sec_footer >div{width: 50%; margin:0 auto}
 #sec_footer >div >a{display: inline-block; width: 48%; text-align: center;}
 #sec_footer >div >a img{width: 30px;}
