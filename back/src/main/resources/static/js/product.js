@@ -72,4 +72,8 @@ var like ={
 
 }
 
+function callFunction(obj) {
+    alert("업데이트 예정입니다.");
+}
+
 like.init();

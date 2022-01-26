@@ -18,10 +18,10 @@
         <section id="sec_header">
             <h3 th:text="${user.place}">개발자</h3>
             <div class="clear">
-                <a>
+                <a onclick="callFunction();">
                     <img src="/img/search.png" alt="검색">
                 </a>
-                <a>
+                <a onclick="callFunction();">
                     <img src="/img/menu.png" alt="리스트">
                 </a>
             </div>
@@ -74,7 +74,7 @@
                     <img src="/img/home.png" alt="home">
                     <span>홈</span>
                 </a>
-                <a class="mypage">
+                <a class="mypage" onclick="callFunction();">
                     <img src="/img/mypage.png" alt="mypage">
                     <span>나의 당근</span>
                 </a>

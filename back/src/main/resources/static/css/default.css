@@ -16,7 +16,7 @@ html{-webkit-touch-callout:none;        /* 링크 메뉴 제어*/
     }
 
 body{font-size: 1rem;color:#2b2b2b;min-width: 320px;letter-spacing: 0;
-    word-wrap: break-word; word-break: keep-all; height: 100vh;
+    word-wrap: break-word; word-break: keep-all;
     }
     /* line-heigth는 그때 그때마다 넣기 */
 
