@@ -45,7 +45,6 @@ public class ProductServiceImpl implements ProductService{
         // 1. 영속화
         Product saveProduct = productRepository.save(product);
         logger.info("saveProduct, {}", saveProduct);
-
         // 2. 이미지 업로드
         s3Service.upload(multipartFile, saveProduct);
 
@@ -59,16 +58,15 @@ public class ProductServiceImpl implements ProductService{
         // 1. 상품
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> { return new CustomApiException("해당 상품은 없습니다.");});
-
-        // 2. 상품 이미지 리스트
+        // 2. 몇분 전
+        String registerTime = getRegisterProduct(product.getCreatedDate());
+        // 3. 상품 이미지 리스트
         List<String> productImages = getProductImages(productId);
-
-        // 3. 해당 유저에 관한 상품 top4
-        List<InquiryProductTopFourResponseDto> topFourProducts = inquiryTopFourProduct(product.getUser().getId());
-
-        // 4. 상품 좋아요 정보(상태, 카운트)
+        // 4. 해당 유저에 관한 상품 top4
+        List<InquiryProductTopFourResponseDto> topFourProducts = inquiryTopFourProduct(productId, product.getUser().getId());
+        // 5. 상품 좋아요 정보(상태, 카운트)
         ProductLikesStatus productLikesStatus = getProductLikesStatus(userId, productId);
-        return new ResponseDto<>("조회한 상품입니다.", new InquiryProductResponseDto(product, getProductImages(productId), productLikesStatus, topFourProducts));
+        return new ResponseDto<>("조회한 상품입니다.", new InquiryProductResponseDto(product, registerTime, getProductImages(productId), productLikesStatus, topFourProducts));
     }
 
 
@@ -81,7 +79,7 @@ public class ProductServiceImpl implements ProductService{
         for (Product product : productRepository.findAll(pageable)) {
 
             // 1. 몇분 전
-            String beforeTime = getRegisterProduct(product.getCreatedDate());
+            String registerTime = getRegisterProduct(product.getCreatedDate());
 
             // 2. 상품 좋아요 정보(상태, 카운트) 조회
             ProductLikesStatus productLikesStatus = getProductLikesStatus(userId, product.getId());
@@ -90,7 +88,7 @@ public class ProductServiceImpl implements ProductService{
             String coverImage = getCoverImage(product.getId());
 
             // 4. 랜딩 페이지 List<Dto>
-            allProductDtos.add(new AllProductResponseDto(product, beforeTime, productLikesStatus, coverImage));
+            allProductDtos.add(new AllProductResponseDto(product, registerTime, productLikesStatus, coverImage));
         }
         return new ResponseDto<>("상품을 전체 조회합니다.", allProductDtos);
     }
@@ -117,10 +115,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     // 유저 판매 상폼 조회(top4)
-    protected List<InquiryProductTopFourResponseDto> inquiryTopFourProduct(Long userId) {
+    protected List<InquiryProductTopFourResponseDto> inquiryTopFourProduct(Long productId, Long userId) {
 
         List<InquiryProductTopFourResponseDto> t4Product = new ArrayList<>();
-        for (Product product : productRepository.inquiryProductTopFourByUser(userId)) {
+        for (Product product : productRepository.inquiryProductTopFourByUser(productId, userId)) {
             t4Product.add(new InquiryProductTopFourResponseDto(product, getCoverImage(product.getId())));
         }
 

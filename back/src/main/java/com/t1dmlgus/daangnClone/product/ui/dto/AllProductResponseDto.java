@@ -22,14 +22,14 @@ public class AllProductResponseDto {
 
     private String coverImage;
 
-    public AllProductResponseDto(Product product,String beforeTime, ProductLikesStatus productLikesStatus, String coverImage) {
+    public AllProductResponseDto(Product product,String registerTime, ProductLikesStatus productLikesStatus, String coverImage) {
         this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.place = product.getUser().getPlace();
         this.likesStatus = productLikesStatus.isLikesStatus();
         this.likesCount = productLikesStatus.getLikesCount();
-        this.registerTime = beforeTime;
+        this.registerTime = registerTime;
         this.coverImage = coverImage;
     }
 }
