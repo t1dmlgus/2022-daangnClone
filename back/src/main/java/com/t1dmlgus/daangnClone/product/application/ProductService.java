@@ -3,6 +3,7 @@ package com.t1dmlgus.daangnClone.product.application;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -15,7 +16,7 @@ public interface ProductService {
     ResponseDto<?> inquiryProduct(Long productId, Long userId);
 
     // 전체 상품 조회(최신순)
-    ResponseDto<?> allProduct(Long userId);
+    ResponseDto<?> allProduct(Long userId, Pageable pageable);
 
 
     // 상품 수정

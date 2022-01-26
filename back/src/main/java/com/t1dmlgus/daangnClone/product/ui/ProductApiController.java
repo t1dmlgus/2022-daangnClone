@@ -7,6 +7,9 @@ import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,8 +30,6 @@ public class ProductApiController {
     @PostMapping("/register")
     public ResponseEntity<?> register(ProductRequestDto productRequestDto, @RequestPart(value = "file") MultipartFile file, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        logger.info("productRequestDto222, {}", productRequestDto);
-
         ResponseDto<?> registerDto = productService.registerProduct(productRequestDto, file, principalDetails.getUser());
         logger.info(SecurityContextHolder.getContext().toString());
 
@@ -42,6 +43,17 @@ public class ProductApiController {
         ResponseDto<?> productDetailDto = productService.inquiryProduct(productId, principalDetails.getUser().getId());
 
         return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
+
+    }
+
+
+    // 상품 전체 조회, 페이징 적용
+    @GetMapping("/randing")
+    public ResponseEntity<?> allProduct(@AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId(), pageable);
+
+        return new ResponseEntity<>(allProductDtos, HttpStatus.OK);
 
     }
 
