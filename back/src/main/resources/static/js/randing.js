@@ -85,3 +85,8 @@ $(window).scroll(() => {
         storyLoad();
     }
 });
+
+
+function callFunction(obj) {
+    alert("업데이트 예정입니다.");
+}
