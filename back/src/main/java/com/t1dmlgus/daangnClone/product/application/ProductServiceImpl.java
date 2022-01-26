@@ -16,7 +16,7 @@ import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,11 +74,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public ResponseDto<?> allProduct(Long userId) {
+    public ResponseDto<?> allProduct(Long userId, Pageable pageable) {
 
         List<AllProductResponseDto> allProductDtos = new ArrayList<>();
 
-        for (Product product : productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))) {
+        for (Product product : productRepository.findAll(pageable)) {
 
             // 1. 몇분 전
             String beforeTime = getRegisterProduct(product.getCreatedDate());

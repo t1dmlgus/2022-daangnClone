@@ -5,6 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/randing.css">
     <title>랜딩페이지</title>
@@ -23,8 +27,8 @@
             </div>
         </section>
         <!-- header -->
-        <section id="sec_content" th:each="product : ${product}">
-            <div class="cont">
+        <section id="sec_content" >
+            <div class="cont" th:each="product : ${product}">
                 <div class="cont_img">
                     <a th:href="|/product/${product.productId}|">
                         <img src="/img/product01.png" th:src="${product.coverImage}" alt="상품_이미지">
@@ -39,21 +43,21 @@
                         </div>
                         <div class="price" th:text="${product.price}"> 가격</div>
                         <div class="won">원</div>
-                    </div> 
+                    </div>
                     <div class="service">
-                        <a href="#" class="comment">
+                        <div href="#" class="comment">
                             <img src="/img/comment.png" alt="댓글">
                             <span class="commentCount">n</span>
-                        </a>
+                        </div>
 <!--                        <a class="likes">-->
 <!--                            <img class="likeStatus" src="/img/heart.png" alt="좋아요">-->
 <!--                        </a>-->
-                        <a class="likes" th:if="${product.likesStatus}">
+                        <div class="likes" th:if="${product.likesStatus}">
                             <img class="likeStatus" src="/img/heart.png" alt="빈 좋아요">
-                        </a>
-                        <a class="likes" th:unless="${product.likesStatus}">
+                        </div>
+                        <div class="likes" th:unless="${product.likesStatus}">
                             <img class="likeStatus" src="/img/likes.png" alt="빈 좋아요">
-                        </a>
+                        </div>
                         <span class="likeCount" th:text="${product.likesCount}">n</span>
                     </div>
                 </div>
@@ -78,7 +82,7 @@
         </section>
         <!-- footer-->
     </div>
-  
+    <script src="/js/randing.js"></script>
     
   </body>
   

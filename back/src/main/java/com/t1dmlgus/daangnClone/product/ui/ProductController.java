@@ -6,6 +6,9 @@ import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +28,9 @@ public class ProductController {
 
     // 랜딩 페이지
     @GetMapping("/randing")
-    public String randing(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String randing(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId());
+        ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId(), pageable);
 
         logger.info("product.getData() {}", allProductDtos.getData());
         model.addAttribute("product", allProductDtos.getData());
