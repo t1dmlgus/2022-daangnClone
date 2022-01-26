@@ -16,11 +16,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -103,8 +107,20 @@ class ProductServiceImplTest {
     @Test
     public void allProductTest() throws Exception{
         //given
+        // 상품 리스트 페이징
+        PageRequest of = PageRequest.of(0, 5);
+        Page<Product> p = new PageImpl<>(new ArrayList<>(List.of(testProduct, testProduct)));
+        // 전체 상품 조회
+        when(productRepository.findAll(of)).thenReturn(p);
+        // 해당 상품 좋아요 상태
+        when(likesService.productLikesStatus(testProduct.getId(), testUser.getId()))
+                .thenReturn(new ProductLikesStatus(true, 5));
+        // 해당 상품 이미지 리스트 조회
+        when(s3service.inquiryProductImage(anyLong()))
+                .thenReturn(new ArrayList<>(List.of("testImage01", "testImage02", "testImage03")));
+
         //when
-        ResponseDto<?> allProductDtos = productServiceImpl.allProduct(testUser.getId());
+        ResponseDto<?> allProductDtos = productServiceImpl.allProduct(testUser.getId(), of);
         //then
         assertThat(allProductDtos.getMessage()).isEqualTo("상품을 전체 조회합니다.");
     }
