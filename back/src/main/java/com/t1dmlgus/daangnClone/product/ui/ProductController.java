@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.product.ui;
 
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -62,5 +63,26 @@ public class ProductController {
     public String registerProduct(){
         return "product/register";
     }
+
+    // 카테고리 메뉴
+    @GetMapping("category")
+    public String categoryMenu(){
+        return "product/categoryMenu";
+    }
+
+    // 카테고리 페이지
+    @GetMapping("/category/{category}")
+    public String byCategory(@PathVariable Category category,@AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+
+        System.out.println("category = " + category);
+        ResponseDto<?> productByCategoryDtos = productService.categoryProduct(category, principalDetails.getUser().getId(), pageable);
+
+        logger.info("product, {}", productByCategoryDtos.getData());
+        model.addAttribute("product", productByCategoryDtos.getData());
+        model.addAttribute("category", category);
+
+        return "product/category";
+    }
+
 
 }
