@@ -3,10 +3,11 @@ package com.t1dmlgus.daangnClone.product.application;
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
 import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
-import com.t1dmlgus.daangnClone.product.ui.dto.AllProductResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.ProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
@@ -16,6 +17,7 @@ import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,7 +76,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ResponseDto<?> allProduct(Long userId, Pageable pageable) {
 
-        List<AllProductResponseDto> allProductDtos = new ArrayList<>();
+        List<ProductResponseDto> allProductDtos = new ArrayList<>();
 
         for (Product product : productRepository.findAll(pageable)) {
 
@@ -88,9 +90,30 @@ public class ProductServiceImpl implements ProductService{
             String coverImage = getCoverImage(product.getId());
 
             // 4. 랜딩 페이지 List<Dto>
-            allProductDtos.add(new AllProductResponseDto(product, registerTime, productLikesStatus, coverImage));
+            allProductDtos.add(new ProductResponseDto(product, registerTime, productLikesStatus, coverImage));
         }
         return new ResponseDto<>("상품을 전체 조회합니다.", allProductDtos);
+    }
+
+    @Override
+    public ResponseDto<?> categoryProduct(Category category,Long userId, Pageable pageable) {
+
+        List<ProductResponseDto> categoryByProductDtos = new ArrayList<>();
+
+        Page<Product> productByCategory = productRepository.findByCategory(category, pageable);
+
+        for (Product product : productByCategory) {
+            // 1. 몇분 전
+            String registerTime = getRegisterProduct(product.getCreatedDate());
+            // 2. 커버 이미지
+            String coverImage = getCoverImage(product.getId());
+            // 3. 좋아요 정보(상태, 카운트)
+            ProductLikesStatus productLikesStatus = getProductLikesStatus(userId, product.getId());
+            // 4. 카테고리 상품 DTO
+            categoryByProductDtos.add(new ProductResponseDto(product, registerTime,productLikesStatus, coverImage));
+        }
+
+        return new ResponseDto<>("카테고리 별로 조회합니다.", categoryByProductDtos);
     }
 
 

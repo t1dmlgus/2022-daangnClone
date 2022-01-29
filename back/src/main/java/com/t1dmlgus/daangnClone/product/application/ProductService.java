@@ -1,5 +1,6 @@
 package com.t1dmlgus.daangnClone.product.application;
 
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
@@ -17,6 +18,9 @@ public interface ProductService {
 
     // 전체 상품 조회(최신순)
     ResponseDto<?> allProduct(Long userId, Pageable pageable);
+
+    // 카테고리 별 조회
+    ResponseDto<?> categoryProduct(Category category, Long userId, Pageable pageable);
 
 
     // 상품 수정

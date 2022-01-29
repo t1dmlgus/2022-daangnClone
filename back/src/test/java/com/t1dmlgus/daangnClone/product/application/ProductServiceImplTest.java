@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
@@ -57,7 +58,7 @@ class ProductServiceImplTest {
     @BeforeAll
     static void beforeAll() {
         testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER, "박달1동");
-        testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
+        testProduct = new Product(1L, "상품명", Category.BEAUTY, 2000, "상품내용", SaleStatus.SALE, testUser);
         productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
         file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
 
@@ -138,6 +139,28 @@ class ProductServiceImplTest {
         //then
         assertThat(time).isEqualTo("50초 전");
 
+    }
+
+    @DisplayName("서비스 - 카테고리 별 상품 조회 테스트")
+    @Test
+    public void productByCategoryTest() throws Exception{
+        //given
+        // 상품 리스트 페이징
+        PageRequest of = PageRequest.of(0, 5);
+        Page<Product> p = new PageImpl<>(new ArrayList<>(List.of(testProduct, testProduct)));
+        // 전체 상품 조회
+        when(productRepository.findByCategory(Category.BEAUTY, of)).thenReturn(p);
+        // 해당 상품 좋아요 상태
+        when(likesService.productLikesStatus(testProduct.getId(), testUser.getId()))
+                .thenReturn(new ProductLikesStatus(true, 5));
+        // 해당 상품 이미지 리스트 조회
+        when(s3service.inquiryProductImage(anyLong()))
+                .thenReturn(new ArrayList<>(List.of("testImage01", "testImage02", "testImage03")));
+
+        //when
+        ResponseDto<?> allProductDtos = productServiceImpl.categoryProduct(Category.BEAUTY, testUser.getId(), of);
+        //then
+        assertThat(allProductDtos.getMessage()).isEqualTo("카테고리 별로 조회합니다.");
     }
 
 }

@@ -11,12 +11,12 @@
 
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/randing.css">
-    <title>랜딩페이지</title>
+    <title>카테고리 페이지</title>
 </head>
 <body>
     <div class="container">
         <section id="sec_header">
-            <h3 th:text="${user.place}">개발자</h3>
+            <h3 th:text="${category.krName}">카테고리</h3>
             <div class="clear">
                 <a onclick="callFunction();">
                     <img src="/img/search.png" alt="검색">

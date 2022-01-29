@@ -5,11 +5,14 @@ import com.t1dmlgus.daangnClone.auth.WithMockCustomUser;
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
 import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
+import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.ProductResponseDto;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
@@ -20,6 +23,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -56,11 +62,14 @@ class ProductApiControllerTest {
 
     @MockBean
     private ProductService productService;
+    @MockBean
+    private ProductRepository productRepository;
+
 
     private static User testUser;
     private static Product testProduct;
-    private static ProductRequestDto productRequestDto;
     private static MockMultipartFile file;
+    private static List<ProductResponseDto> categoryByProductDtos;
 
     @BeforeEach
     void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
@@ -72,9 +81,9 @@ class ProductApiControllerTest {
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
         testUser = new User(1L, "dmlgusgngl@gmail.com", "1234", "이의현", "010-1234-1234", "t1dmlgus", Role.ROLE_USER, "박달1동");
-        testProduct = new Product(1L, "상품명", null, 2000, "상품내용", SaleStatus.SALE, testUser);
-        productRequestDto = new ProductRequestDto("상품명", "PET_SUPPLIES", 100, "상품내용");
+        testProduct = new Product(1L, "상품명", Category.BEAUTY, 2000, "상품내용", SaleStatus.SALE, testUser);
         file = new MockMultipartFile("파일명", "파일명.jpeg", "image/jpeg", "파일12".getBytes());
+
     }
 
     
@@ -112,9 +121,10 @@ class ProductApiControllerTest {
     public void inquiryProductTest() throws Exception{
         //given
         String registerTime = "5초 전";
-
         ProductLikesStatus productLikesStatus = new ProductLikesStatus(true, 3);
         List<String> productImages = new ArrayList<>(List.of("testImageUrl1", "testImageUrl2", "testImageUrl3"));
+
+
         List<InquiryProductTopFourResponseDto> t4Prod =
                 new ArrayList<>(List.of(new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl")
                 , new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl2")));
@@ -138,6 +148,36 @@ class ProductApiControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(document("{class-name}/{method-name}", getDocumentRequest(), getDocumentResponse()));
+    }
+
+    @DisplayName("컨트롤러 - 카테고리 별 상품 조회 테스트")
+    @Test
+    @WithMockCustomUser
+    public void productByCategoryTest() throws Exception{
+        //given
+        PageRequest of = PageRequest.of(0, 10);
+
+        String registerTime = "5초 전";
+        ProductLikesStatus productLikesStatus = new ProductLikesStatus(true, 3);
+        String coverImage = "testImageUrl1";
+
+
+        categoryByProductDtos = new ArrayList<>(List.of(new ProductResponseDto(testProduct, registerTime, productLikesStatus, coverImage)));
+        doReturn(new ResponseDto<>("카테고리 별로 조회합니다.", categoryByProductDtos))
+                .when(productService).categoryProduct(Category.BEAUTY, testUser.getId(), of);
+
+
+        //when
+        ResultActions resultActions = mockMvc.perform(
+                get("/api/product/category/{category}", Category.BEAUTY)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        );
+
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 

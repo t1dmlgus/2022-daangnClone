@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.product.ui;
 
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
+import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,6 @@ public class ProductApiController {
 
         ResponseDto<?> registerDto = productService.registerProduct(productRequestDto, file, principalDetails.getUser());
         logger.info(SecurityContextHolder.getContext().toString());
-
         return new ResponseEntity<>(registerDto, HttpStatus.CREATED);
     }
 
@@ -41,22 +41,25 @@ public class ProductApiController {
     public ResponseEntity<?> inquiryProduct(@PathVariable Long productId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         ResponseDto<?> productDetailDto = productService.inquiryProduct(productId, principalDetails.getUser().getId());
-
         return new ResponseEntity<>(productDetailDto, HttpStatus.OK);
 
     }
-
 
     // 상품 전체 조회, 페이징 적용
     @GetMapping("/randing")
     public ResponseEntity<?> allProduct(@AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId(), pageable);
-
         return new ResponseEntity<>(allProductDtos, HttpStatus.OK);
-
     }
 
+    // 카테고리 조회, 페이징 적용
+    @GetMapping("/category/{category}")
+    public ResponseEntity<?> allProduct(@PathVariable Category category, @AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        ResponseDto<?> product = productService.categoryProduct(category,principalDetails.getUser().getId(), pageable);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
     
     
