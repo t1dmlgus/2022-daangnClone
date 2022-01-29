@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="/product/randing" class="back">
+        <a href="#" onClick="history.back()" class="back">
             <img src="/img/left-arrow.png" alt="화살표">
             <img src="/img/home.png" alt="home">
         </a>
@@ -40,7 +40,7 @@
                     <span class="title" th:text="${product.title}">제목</span>
                 </div>
                 <div class="gray">
-                    <span class="category" th:text="${product.category.krName}">카테고리</span>
+                    <span class="category" th:val="${product.category}" th:text="${product.category.krName}">카테고리</span>
                     <span>*</span>
                     <span class="uploadTime" th:text="${product.registerTime}">게시시간</span>
                 </div>

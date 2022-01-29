@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/category.css">
+    <title>상품페이지</title>
+</head>
+<body>
+<div class="container">
+    <a href="/product/randing" class="back">
+        <img src="/img/left-arrow.png" alt="화살표">
+        <img src="/img/home.png" alt="home">
+    </a>
+    <div class="category">
+        <div>카테고리</div>
+    </div>
+    <section id="sec01">
+        <div>
+            <ul>
+                <li>
+                    <a href="/product/category/">인기매물</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'USED_CAR')}">중고차</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'DIGITAL_DEVICE')}">디지털기기</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'HOME_APPLIANCES')}">생활가전</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'FURNITURE_INTERIOR')}">가구/인테리어</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'CHILD')}">유아동</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'LIFE_PROCESSED_FOOD')}">생활/가공식품</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'CHILDREN_BOOKS')}">유아도서</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'BEAUTY')}">뷰티</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'WOMEN_CLOTHING')}">여성의류</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'MEN_CLOTHING')}">남성의류</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'PET_SUPPLIES')}">반려동물용품</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'BOOK_TICKET_ALBUM')}">도서/티켓/음반</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'PLANT')}">식물</a>
+                </li>
+                <li>
+                    <a th:href="@{/product/category/{category}(category = 'OTHER_USED_GOODS')}">기타 중고물품</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a href="#">도서/티켓/음반</a>
+                </li>
+                <li>
+                    <a href="#">식물</a>
+                </li>
+                <li>
+                    <a href="#">기타 중고물품</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- sec_04 -->
+</div>
+<script src="/js/product.js"></script>
+</body>
+
+</html>
