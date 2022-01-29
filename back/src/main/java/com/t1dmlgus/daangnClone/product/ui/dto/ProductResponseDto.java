@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AllProductResponseDto {
+public class ProductResponseDto {
 
     private Long productId;
     private String title;
@@ -22,7 +22,9 @@ public class AllProductResponseDto {
 
     private String coverImage;
 
-    public AllProductResponseDto(Product product,String registerTime, ProductLikesStatus productLikesStatus, String coverImage) {
+
+    // 랜딩 dto
+    public ProductResponseDto(Product product, String registerTime, ProductLikesStatus productLikesStatus, String coverImage) {
         this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
