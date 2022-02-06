@@ -47,7 +47,7 @@ public class ProductController {
         ResponseDto<?> productDetails = productService.inquiryProduct(productId, principalDetails.getUser().getId());
         logger.info("productDetails {}", productDetails);
         model.addAttribute("product", productDetails.getData());
-
+        model.addAttribute("principal", principalDetails.getUser());
         return "product/product";
     }
 
