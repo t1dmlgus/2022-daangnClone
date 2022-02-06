@@ -8,12 +8,9 @@ function storyLoad() {
         url:`/api/product/randing?page=${page}`,
         dataType:"json",
 
-
     }).done(res=>{
-        console.log(res);
-        console.log(page);
+//        console.log(res);
         res.data.forEach(element=>{
-//            console.log(element);
             let storyItem = getStoryItem(element);
             $("#sec_content").append(storyItem);
         })
@@ -77,11 +74,8 @@ $(window).scroll(() => {
 
     // 윈도우 scrollTop = 문서의 높이 - 윈도우 높이
     let checkNum = $(window).scrollTop() - ($(document).height() - $(window).height());
-    console.log(checkNum);
-
     if( checkNum< 1 && checkNum > -1){
         page++;
-        console.log(page);
         storyLoad();
     }
 });

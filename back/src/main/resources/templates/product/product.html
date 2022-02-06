@@ -88,8 +88,12 @@
                 </div>
             </div>
             <div class="comment">
-                <a class="readComment" href="#" onclick="callFunction();">댓글보기</a>
-                <a class="writeComment" href="#" onclick="callFunction();">댓글남기기</a>
+                <div th:if="${principal.id} == ${product.userId}">
+                    <a class="chatlist" th:href="@{'/chat/rooms/' + ${principal.id}}" th:val="${product.userId}">채팅 목록 보기</a>
+                </div>
+                <div th:unless="${principal.id} == ${product.userId}">
+                    <a class="chat" th:val="${product.userId}">채팅으로 거래하기</a>
+                </div>
             </div>
         </section>
         <!-- sec_04 --> 

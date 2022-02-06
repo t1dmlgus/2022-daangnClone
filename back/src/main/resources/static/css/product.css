@@ -34,11 +34,11 @@
 #sec_03 .empty{height:100px}
 
 #sec_04{position:fixed; bottom:0; margin:20px 0px 0; padding: 10px 0; border-top: 1px solid #ccc;background:#fff;}
-#sec_04 .icon{width: 40%;display: inline-block;margin: 0 auto;}
+#sec_04 .icon{width: 50%;display: inline-block;margin: 0 auto;vertical-align: middle}
 #sec_04 .likebtn{display: inline-block; padding: 0 15px 0 ; width: 25%; vertical-align: baseline; border-right: 1px solid #ccc;}
 #sec_04 .commentbtn{display: inline-block; margin:0 10%; width: 25%;}
 
-#sec_04 .comment{width: 58%; display: inline-block;}
-#sec_04 .comment a{width: 41%; display: inline-block; padding:15px 5px;
+#sec_04 .comment{width: 48%; display: inline-block; text-align: right}
+#sec_04 .comment a{display: inline-block; padding:15px 5px; margin: 0 15px 0 0;
     background-color: rgb(253, 137, 43);color: #fff;border-radius: 10px;font-size: 15px;
 text-align: center;}

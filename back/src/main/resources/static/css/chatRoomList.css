@@ -1,0 +1,27 @@
+.container{margin: 20px 15px}
+
+#sec_header{
+    margin: 30px 0; position: relative;
+}
+
+#sec_header h3{display: inline;}
+#sec_header >div{display: inline; float: right;}
+#sec_header >div >a{display: inline-block; width: 20px;}
+
+
+#sec_content{margin:20px 10px;}
+#sec_content > div .profile{display:block; padding: 10px 0; border-bottom: 1px solid #ccc;}
+#sec_content > div .profile img{width: 40px;}
+#sec_content > div .profile >div{display: inline-block; padding: 0 0 0 10px}
+#sec_content > div .profile >div span{vertical-align: middle;line-height: 1;display:block}
+#sec_content > div .profile >div span.place{font-size:12px; color:darkgray; padding-top:7px}
+
+
+#sec_footer{position:fixed; bottom:0; right:0; width: 100%;background-color: #fff;padding: 10px 0;border-top: 1px solid #ccc;}
+#sec_footer >div{width: 50%; margin:0 auto}
+#sec_footer >div >a{display: inline-block; width: 48%; text-align: center;}
+#sec_footer >div >a img{width: 30px;}
+#sec_footer >div >a span{display: block;}
+
+#sec_footer a.btn_register{ width: 20px;display: inline-block;position: absolute;right: 60px;bottom:110px;}
+#sec_footer a.btn_register img{background:coral; padding:13px; border-radius: 50%}

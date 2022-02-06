@@ -1,0 +1,38 @@
+
+.container{margin: 20px 0px}
+
+.back{position: absolute;left: 10px;top: 15px; display: inline-block; width: 46px;}
+.back img{width: 20px;}
+/* back */
+
+#sec_01{margin: 0 0 7px; padding: 0 0 5px; border-bottom: 1px solid #ccc;}
+#sec_01 h1{font-size: 16px;text-align:center}
+
+#sec_02 #msgArea{    padding: 0 10px;
+
+                 }
+#sec_02 #msgArea .me{padding: 0 0 3px;
+                         width: 60%;
+                         float: right;text-align: right;}
+#sec_02 #msgArea .me >div div{background: tomato;
+                                   border-radius: 12px 12px 0;
+                                   color: #fff;
+                                   display: inline-block;
+                                   padding: 8px;
+                                   font-size: 12px;}
+#sec_02 #msgArea .other{padding: 0 0 3px;
+                         width: 60%;
+                         float: left;text-align: left;}
+
+#sec_02 #msgArea .other >div div{background: steelblue;
+                                   border-radius: 12px 12px 12px 0;
+                                   color: #fff;
+                                   display: inline-block;
+                                   padding: 8px;
+                                   font-size: 12px;}
+
+#sec_03 {text-align: center; position: fixed; width: 92%; bottom: 5%;}
+#sec_03 >input { width: 80%; vertical-align: top;}
+
+#button-send{ display:inline-block; width:50px; height:32px; line-height:32px; background: #000; color: #fff; border-radius: 8px;}
+

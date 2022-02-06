@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/chatRoomList.css">
+    <title>채팅 목록</title>
+</head>
+<body>
+<div class="container">
+    <section id="sec_header">
+        <h3>채팅</h3>
+        <div class="clear">
+            <a href="/product/category">
+                <img src="/img/menu.png" alt="리스트">
+            </a>
+        </div>
+    </section>
+    <!-- header -->
+    <section id="sec_content" >
+        <div class="cont" th:each="list : ${lists}">
+            <a class="profile" th:href="@{'/chat/room?roomId='+ ${list.roomId}}">
+                <img src="/img/profile.png" alt="프로필">
+                <div>
+                    <span class="nickName" th:text="${list.buyer}">구매자</span>
+                    <span class="place">마지막 대화</span>
+                </div>
+            </a>
+        </div>
+        <!-- content-->
+    </section>
+
+    <section id="sec_footer">
+        <a class="btn_register" href="/product/register">
+            <img src="/img/plus (1).png" alt="">
+        </a>
+        <div class="clear">
+            <a class="home" href="/product/randing">
+                <img src="/img/home.png" alt="home">
+                <span>홈</span>
+            </a>
+            <a class="mypage" onclick="callFunction();">
+                <img src="/img/mypage.png" alt="mypage">
+                <span>나의 당근</span>
+            </a>
+        </div>
+    </section>
+    <!-- footer-->
+</div>
+
+</body>
+
+</html>
