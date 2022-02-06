@@ -1,6 +1,5 @@
 package com.t1dmlgus.daangnClone.product.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

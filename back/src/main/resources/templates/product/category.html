@@ -15,14 +15,16 @@
 </head>
 <body>
     <div class="container">
-        <section id="sec_header">
+        <a href="#" onClick="history.back()" class="back">
+            <img src="/img/left-arrow.png" alt="화살표">
+            <img src="/img/home.png" alt="home">
+        </a>
+
+        <section id="sec_header" class="category_header">
             <h3 th:text="${category.krName}">카테고리</h3>
             <div class="clear">
                 <a onclick="callFunction();">
                     <img src="/img/search.png" alt="검색">
-                </a>
-                <a href="/product/category">
-                    <img src="/img/menu.png" alt="리스트">
                 </a>
             </div>
         </section>
