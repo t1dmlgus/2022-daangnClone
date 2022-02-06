@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="/css/chatRoom.css">
+    <title>채팅 서버</title>
+</head>
+<body>
+    <div class="container">
+        <a href="#" onClick="history.back()" class="back">
+            <img src="/img/left-arrow.png" alt="화살표">
+            <img src="/img/home.png" alt="home">
+        </a>
+        <section id="sec_01">
+            <div th:if="${principal.nickName} == ${room.seller}">
+                <h1>[[${room.buyer}]]</h1>
+            </div>
+            <div th:unless="${principal.nickName} == ${room.seller}">
+                <h1>[[${room.seller}]]</h1>
+            </div>
+        </section>
+        <section id="sec_02">
+            <div id="msgArea" class="col clear"></div>
+
+        </section>
+        <section id="sec_03">
+            <input type="text" id="msg" class="form-control">
+            <div class="btn btn-outline-secondary" type="button" id="button-send">전송</div>
+        </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script th:inline="javascript">
+            $(document).ready(function(){
+
+                var roomName = [[${room.buyer}]];
+                var roomId = [[${room.roomId}]];
+                var username = [[${#authentication.principal.username}]];
+                console.log(roomName + ", " + roomId + ", " + username);
+
+                //1. SockJS를 내부에 들고있는 Stomp를 생성
+                var sockJs = new SockJS("/stomp/chat");
+                var stomp = Stomp.over(sockJs);
+
+                //2. stomp 이 맺어지면 실행
+                stomp.connect({}, function (){
+                   console.log("STOMP Connection..")
+
+                   //4. subscribe(path, callback)으로 메세지를 동기화
+                   stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                       var content = JSON.parse(chat.body);
+                       console.log(content);
+                       var writer = content.writer;
+                       var message = content.message;
+                       var str = '';
+
+                       if(writer === username){
+                           str = "<div class='col-6 me'>";
+                           str += "<div class='alert alert-secondary'>";
+                           str += "<div>" + message + "</div>";
+                           str += "</div></div>";
+                           $("#msgArea").append(str);
+                       }
+                       else{
+                           str = "<div class='col-6 other'>";
+                           str += "<div class='alert alert-warning'>";
+                           str += "<div>" + message + "</div>";
+                           str += "</div></div>";
+                           $("#msgArea").append(str);
+                       }
+
+                   });
+
+                   //3-1. 채팅방 입장 시, stomp.send(path, header, message)로 메세지를 보낼 수 있음
+                   stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+                });
+
+
+                // 3-2. 채팅 전송 시
+                $("#button-send").on("click", function(e){
+                    var msg = document.getElementById("msg");
+
+                    console.log(username + ":" + msg.value);
+                    stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
+                    msg.value = '';
+                });
+            });
+        </script>
+</body>
+</html>
