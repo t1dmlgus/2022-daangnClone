@@ -9,7 +9,7 @@ public interface ChatService {
     ResponseDto<?> createChatRoom(Long userId, User user);
 
     // 채팅방 목록 조회(판매자)
-    ResponseDto<?> allChatRoomByBuyer(Long sellerId);
+    ResponseDto<?> allChatRoomBySeller(Long sellerId);
 
     // 채팅방 조회
     ResponseDto<?> getChatRoom(String roomId);

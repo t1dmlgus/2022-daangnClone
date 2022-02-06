@@ -26,7 +26,7 @@ public class ChatRoomController {
     public String rooms(@PathVariable Long sellerId, Model model){
 
         log.info("# All Chat Rooms");
-        ResponseDto<?> responseDto = chatService.allChatRoomByBuyer(sellerId);
+        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(sellerId);
         model.addAttribute("lists", responseDto.getData());
 
         return "/chat/chatRoomList";

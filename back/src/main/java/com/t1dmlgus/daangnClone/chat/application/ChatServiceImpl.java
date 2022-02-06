@@ -53,7 +53,7 @@ public class ChatServiceImpl implements ChatService{
 
     @Transactional
     @Override
-    public ResponseDto<?> allChatRoomByBuyer(Long sellerId) {
+    public ResponseDto<?> allChatRoomBySeller(Long sellerId) {
 
         List<ChatRoom> chatRooms = chatRoomRepository.findAllBySellerId(sellerId);
 
