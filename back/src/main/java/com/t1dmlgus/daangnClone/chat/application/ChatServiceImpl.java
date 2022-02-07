@@ -32,11 +32,10 @@ public class ChatServiceImpl implements ChatService{
 
         // 1. 우선 채팅방 조회
         ChatRoom loadChatRoom = chatRoomRepository.findBySellerIdAndBuyerIdAndProductId(chatRoomRequestDto.getSellerId(), chatRoomRequestDto.getBuyer().getId(), chatRoomRequestDto.getProductId());
-        if (loadChatRoom == null) {
-            createChat(chatRoomRequestDto);
+        if (loadChatRoom != null) {
+            return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom));
         }
-
-        return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom));
+        return createChat(chatRoomRequestDto);
     }
 
     protected ResponseDto<?> createChat(ChatRoomRequestDto chatRoomRequestDto) {
@@ -62,9 +61,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Transactional
     @Override
-    public ResponseDto<?> allChatRoomBySeller(Long sellerId) {
+    public ResponseDto<?> allChatRoomBySeller(Long productId) {
 
-        List<ChatRoom> chatRooms = chatRoomRepository.findAllBySellerId(sellerId);
+        List<ChatRoom> chatRooms = chatRoomRepository.findAllByProductId(productId);
 
         List<ChatRoomResponseDto> collect = chatRooms.stream().map(ChatRoomResponseDto::new).collect(Collectors.toList());
         return new ResponseDto<>("해당 유저의 채팅목록이 조회되었습니다.", collect);

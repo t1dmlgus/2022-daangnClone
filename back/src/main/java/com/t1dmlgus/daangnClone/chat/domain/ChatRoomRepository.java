@@ -1,6 +1,7 @@
 package com.t1dmlgus.daangnClone.chat.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
@@ -12,5 +13,5 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     ChatRoom findBySellerIdAndBuyerIdAndProductId(Long sellerId, Long buyerId, Long productId);
 
     // 채팅방 모두 조회(판매자)
-    List<ChatRoom> findAllBySellerId(Long sellerId);
+    List<ChatRoom> findAllByProductId(Long productId);
 }

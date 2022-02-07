@@ -98,15 +98,15 @@ $(document).ready(function(){
     })
 
      // 2. 채팅 목록 조회
-     $('.chatlist').click(function(){
+     $('.chatList').click(function(){
 
-        var sellerId = $('.chatlist').attr('val');
-        console.log(sellerId);
+        var productId = $('.chatList').attr('val');
+        console.log(productId);
 
             $.ajax({
 
                 type: "GET",
-                url: "/chat/rooms/"+sellerId
+                url: "/api/chat/rooms/"+productId
 
             }).done(function(aa){
                 console.log(aa);

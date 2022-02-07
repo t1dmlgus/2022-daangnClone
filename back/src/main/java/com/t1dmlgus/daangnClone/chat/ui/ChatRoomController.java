@@ -22,11 +22,15 @@ public class ChatRoomController {
     private final ChatService chatService;
 
     //채팅방 목록 조회(판매자)
-    @GetMapping(value = "/rooms/{sellerId}")
-    public String rooms(@PathVariable Long sellerId, Model model){
+    @GetMapping(value = "/rooms/{productId}")
+    public String rooms(@PathVariable Long productId, Model model){
+
+        System.out.println("productId = " + productId);
 
         log.info("# All Chat Rooms");
-        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(sellerId);
+        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(productId);
+
+        System.out.println("responseDto = " + responseDto);
         model.addAttribute("lists", responseDto.getData());
 
         return "/chat/chatRoomList";

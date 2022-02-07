@@ -31,4 +31,16 @@ public class ChatRoomApiController {
         return new ResponseEntity<>(chatRoomDto, HttpStatus.OK);
     }
 
+
+    //채팅방 목록 조회(판매자)
+    @GetMapping(value = "/rooms/{productId}")
+    public ResponseEntity<?> rooms(@PathVariable Long productId){
+
+        log.info("# All Chat Rooms");
+        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(productId);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+
 }
