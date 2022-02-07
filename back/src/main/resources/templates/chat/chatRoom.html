@@ -60,11 +60,13 @@
                        console.log(content);
                        var writer = content.writer;
                        var message = content.message;
+                       var time = content.time;
                        var str = '';
 
                        if(writer === username){
                            str = "<div class='col-6 me'>";
                            str += "<div class='alert alert-secondary'>";
+                           str += "<span class='time'>" + time + "</span>";
                            str += "<div>" + message + "</div>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
@@ -73,6 +75,7 @@
                            str = "<div class='col-6 other'>";
                            str += "<div class='alert alert-warning'>";
                            str += "<div>" + message + "</div>";
+                           str += "<span class='time'>" + time + "</span>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
                        }
@@ -80,7 +83,7 @@
                    });
 
                    //3-1. 채팅방 입장 시, stomp.send(path, header, message)로 메세지를 보낼 수 있음
-                   stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+                   //stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
                 });
 
 

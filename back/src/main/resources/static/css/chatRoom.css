@@ -11,8 +11,19 @@
 #sec_02 #msgArea{    padding: 0 10px;
 
                  }
+
+#sec_02 #msgArea div >div span.time{
+                     display:inline-block;
+                     font-size: 10px;
+                     vertical-align: bottom;
+                     color: #999;
+                     padding: 0 3px 0;
+}
+
+
+
 #sec_02 #msgArea .me{padding: 0 0 3px;
-                         width: 60%;
+                         width: 90%;
                          float: right;text-align: right;}
 #sec_02 #msgArea .me >div div{background: tomato;
                                    border-radius: 12px 12px 0;
