@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.chat.ui;
 
 import com.t1dmlgus.daangnClone.auth.domain.PrincipalDetails;
 import com.t1dmlgus.daangnClone.chat.application.ChatService;
+import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +20,14 @@ public class ChatRoomApiController {
     private final ChatService chatService;
 
     //채팅방 생성 및 조회
-    @PostMapping(value = "/room/{userId}")
-    public ResponseEntity<?> chat(@PathVariable Long userId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    @PostMapping(value = "/room")
+    public ResponseEntity<?> chat(@RequestBody ChatRoomRequestDto chatRoomRequestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        // 채팅방 생성 요청 DTO
+        chatRoomRequestDto.setBuyer(principalDetails.getUser());
 
         log.info("# Create Chat Room");
-        ResponseDto<?> chatRoomDto = chatService.createChatRoom(userId, principalDetails.getUser());
+        ResponseDto<?> chatRoomDto = chatService.createChatRoom(chatRoomRequestDto);
         return new ResponseEntity<>(chatRoomDto, HttpStatus.OK);
     }
 

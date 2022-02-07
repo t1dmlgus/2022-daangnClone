@@ -73,13 +73,17 @@ $(document).ready(function(){
      // 1. 채팅하기
      $('.chat').click(function(){
 
-        var userId = $('.chat').attr('val');
-        console.log(userId);
+        // sellerId
+        var sellerId = $('.chat').attr('val');
+        // productId
+        var productId = $('#productId').attr('val');
+        var data = {"sellerId": sellerId, "productId":productId};
 
             $.ajax({
 
                 type: "POST",
-                url: "/api/chat/room/"+userId,
+                url: "/api/chat/room",
+                data: JSON.stringify(data),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
 
@@ -88,7 +92,7 @@ $(document).ready(function(){
                 location.href=`/chat/room?roomId=`+aa.data.roomId;
 
             }).fail(function(error){
-                console.log(error.responseText);
+                console.log(error);
 
             })
     })

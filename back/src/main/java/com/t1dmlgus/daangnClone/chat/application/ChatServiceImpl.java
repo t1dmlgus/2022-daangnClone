@@ -2,8 +2,11 @@ package com.t1dmlgus.daangnClone.chat.application;
 
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoom;
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoomRepository;
+import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomResponseDto;
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
+import com.t1dmlgus.daangnClone.product.domain.Product;
+import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
@@ -21,24 +24,30 @@ public class ChatServiceImpl implements ChatService{
 
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
-
+    private final ProductRepository productRepository;
 
     @Transactional
     @Override
-    public ResponseDto<?> createChatRoom(Long sellerId, User buyer) {
+    public ResponseDto<?> createChatRoom(ChatRoomRequestDto chatRoomRequestDto) {
 
         // 1. 우선 채팅방 조회
-        ChatRoom loadChatRoom = chatRoomRepository.findBySellerIdAndBuyerId(sellerId, buyer.getId());
-
-        // 2. 없으면 생성
+        ChatRoom loadChatRoom = chatRoomRepository.findBySellerIdAndBuyerIdAndProductId(chatRoomRequestDto.getSellerId(), chatRoomRequestDto.getBuyer().getId(), chatRoomRequestDto.getProductId());
         if (loadChatRoom == null) {
-            User seller = userRepository.findById(sellerId).orElseThrow(
-                    () -> {return new CustomApiException("해당 유저가 없습니다.");});
-            ChatRoom createChatRoom = chatRoomRepository.save(new ChatRoom(seller, buyer));
-            return new ResponseDto<>("채팅방이 생성되었습니다.", new ChatRoomResponseDto(createChatRoom));
+            createChat(chatRoomRequestDto);
         }
 
         return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom));
+    }
+
+    protected ResponseDto<?> createChat(ChatRoomRequestDto chatRoomRequestDto) {
+
+        User seller = userRepository.findById(chatRoomRequestDto.getSellerId()).orElseThrow(
+                () -> {return new CustomApiException("해당 유저가 없습니다.");});
+        Product product = productRepository.findById(chatRoomRequestDto.getProductId()).orElseThrow(
+                () -> { return new CustomApiException("해당 상품은 없는 상품입니다.");});
+
+        ChatRoom createChatRoom = chatRoomRepository.save(new ChatRoom(seller, chatRoomRequestDto.getBuyer(), product));
+        return new ResponseDto<>("채팅방이 생성되었습니다.", new ChatRoomResponseDto(createChatRoom));
     }
 
 

@@ -88,10 +88,11 @@
                 </div>
             </div>
             <div class="comment">
-                <div th:if="${principal.id} == ${product.userId}">
+                <input type="hidden" id="productId" name="" th:val="${product.productId}">
+                <div th:if="${product.userId} == ${principal.id}">
                     <a class="chatlist" th:href="@{'/chat/rooms/' + ${principal.id}}" th:val="${product.userId}">채팅 목록 보기</a>
                 </div>
-                <div th:unless="${principal.id} == ${product.userId}">
+                <div th:unless="${product.userId} == ${principal.id}">
                     <a class="chat" th:val="${product.userId}">채팅으로 거래하기</a>
                 </div>
             </div>
@@ -99,6 +100,7 @@
         <!-- sec_04 --> 
     </div>
     <script src="/js/product.js"></script>
+
   </body>
   
 </html>
