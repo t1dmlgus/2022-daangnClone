@@ -30,7 +30,7 @@ public class ChatRoomController {
         System.out.println("productId = " + productId);
 
         log.info("# All Chat Rooms");
-        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(productId);
+        ResponseDto<?> responseDto = chatService.allChatRoomByProduct(productId);
 
         System.out.println("responseDto = " + responseDto);
         model.addAttribute("lists", responseDto.getData());

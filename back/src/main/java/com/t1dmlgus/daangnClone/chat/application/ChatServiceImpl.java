@@ -67,7 +67,6 @@ public class ChatServiceImpl implements ChatService{
     public ResponseDto<?> getChatRoom(String roomId) throws IOException {
 
         ChatRoom loadChatRoom = chatRoomRepository.getByRoomId(roomId);
-        // 이전 채팅 reload
         List<ChatMessageDto> reloadChat = reloadChat(roomId);
 
         return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom, reloadChat));
@@ -76,14 +75,16 @@ public class ChatServiceImpl implements ChatService{
 
     @Transactional
     @Override
-    public ResponseDto<?> allChatRoomBySeller(Long productId) {
+    public ResponseDto<?> allChatRoomByProduct(Long productId) {
 
         List<ChatRoom> chatRooms = chatRoomRepository.findAllByProductId(productId);
 
         List<ChatRoomResponseDto> collect = chatRooms.stream().map(ChatRoomResponseDto::new).collect(Collectors.toList());
-        return new ResponseDto<>("해당 유저의 채팅목록이 조회되었습니다.", collect);
+        return new ResponseDto<>("해당 상품의 채팅목록이 조회되었습니다.", collect);
     }
 
+    @Transactional
+    @Override
     public void updateChat(ChatMessageDto message){
 
         try {
@@ -105,7 +106,7 @@ public class ChatServiceImpl implements ChatService{
         }
     }
 
-    public List<ChatMessageDto> reloadChat(String roomId) throws IOException{
+    protected List<ChatMessageDto> reloadChat(String roomId) throws IOException{
 
         ArrayList<ChatMessageDto> beforeChat = new ArrayList<>();
         File file = new File(fileUploadPath + roomId + ".txt");

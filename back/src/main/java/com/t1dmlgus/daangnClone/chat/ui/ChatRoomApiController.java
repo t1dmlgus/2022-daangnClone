@@ -37,7 +37,7 @@ public class ChatRoomApiController {
     public ResponseEntity<?> rooms(@PathVariable Long productId){
 
         log.info("# All Chat Rooms");
-        ResponseDto<?> responseDto = chatService.allChatRoomBySeller(productId);
+        ResponseDto<?> responseDto = chatService.allChatRoomByProduct(productId);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
