@@ -26,12 +26,24 @@
             </div>
         </section>
         <section id="sec_02">
+            <div th:if="${room.reloadChat != null}" id="beforeChat" class="col">
+                <div th:each="chat : ${room.reloadChat}" class="clear">
+                    <div th:classappend="${principal.name} == ${chat.writer} ? 'me':'other'">
+                        <div class="clear">
+                            <div class="message" th:text="${chat.message}"></div>
+                            <span class="time" th:text="${chat.time}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="msgArea" class="col clear"></div>
 
         </section>
         <section id="sec_03">
-            <input type="text" id="msg" class="form-control">
-            <div class="btn btn-outline-secondary" type="button" id="button-send">전송</div>
+            <div>
+                <input type="text" id="msg" class="form-control">
+                <div class="btn btn-outline-secondary" type="button" id="button-send">전송</div>
+            </div>
         </section>
 
     </div>
@@ -65,16 +77,16 @@
 
                        if(writer === username){
                            str = "<div class='col-6 me'>";
-                           str += "<div class='alert alert-secondary'>";
+                           str += "<div class='alert alert-secondary clear'>";
+                           str += "<div class='message'>" + message + "</div>";
                            str += "<span class='time'>" + time + "</span>";
-                           str += "<div>" + message + "</div>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
                        }
                        else{
                            str = "<div class='col-6 other'>";
-                           str += "<div class='alert alert-warning'>";
-                           str += "<div>" + message + "</div>";
+                           str += "<div class='alert alert-warning clear'>";
+                           str += "<div class='message'>" + message + "</div>";
                            str += "<span class='time'>" + time + "</span>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
@@ -83,7 +95,7 @@
                    });
 
                    //3-1. 채팅방 입장 시, stomp.send(path, header, message)로 메세지를 보낼 수 있음
-                   //stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+                   stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
                 });
 
 
