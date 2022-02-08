@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,6 +16,7 @@ import java.util.List;
 public class InquiryProductResponseDto {
 
     private Long productId;
+    private Long userId;
     private String title;
     private int price;
     private Category category;
@@ -33,6 +33,7 @@ public class InquiryProductResponseDto {
     public InquiryProductResponseDto(Product product, String registerTime, List<String> images, ProductLikesStatus productLikesStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
 
         this.productId = product.getId();
+        this.userId = product.getUser().getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.category = product.getCategory();

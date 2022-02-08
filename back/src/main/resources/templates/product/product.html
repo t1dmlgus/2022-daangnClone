@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="#" onClick="history.back()" class="back">
+        <a href="/product/randing" class="back">
             <img src="/img/left-arrow.png" alt="화살표">
             <img src="/img/home.png" alt="home">
         </a>
@@ -88,13 +88,19 @@
                 </div>
             </div>
             <div class="comment">
-                <a class="readComment" href="#" onclick="callFunction();">댓글보기</a>
-                <a class="writeComment" href="#" onclick="callFunction();">댓글남기기</a>
+                <input type="hidden" id="productId" name="" th:val="${product.productId}">
+                <div th:if="${product.userId} == ${principal.id}">
+                    <a class="chatList" th:href="@{'/chat/rooms/' + ${product.productId}}" th:val="${product.productId}">채팅 목록 보기</a>
+                </div>
+                <div th:unless="${product.userId} == ${principal.id}">
+                    <a class="chat" th:val="${product.userId}">채팅으로 거래하기</a>
+                </div>
             </div>
         </section>
         <!-- sec_04 --> 
     </div>
     <script src="/js/product.js"></script>
+
   </body>
   
 </html>

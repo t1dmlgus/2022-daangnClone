@@ -64,16 +64,64 @@ var like ={
                 alert('좋아요 취소 에러');
 
             })
-
-
-
         }
-
-
 }
+like.init();
+
+$(document).ready(function(){
+
+     // 1. 채팅하기
+     $('.chat').click(function(){
+
+        // sellerId
+        var sellerId = $('.chat').attr('val');
+        // productId
+        var productId = $('#productId').attr('val');
+        var data = {"sellerId": sellerId, "productId":productId};
+
+            $.ajax({
+
+                type: "POST",
+                url: "/api/chat/room",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+
+            }).done(function(aa){
+                console.log(aa);
+                location.href=`/chat/room?roomId=`+aa.data.roomId;
+
+            }).fail(function(error){
+                console.log(error);
+
+            })
+    })
+
+     // 2. 채팅 목록 조회
+     $('.chatList').click(function(){
+
+        var productId = $('.chatList').attr('val');
+        console.log(productId);
+
+            $.ajax({
+
+                type: "GET",
+                url: "/api/chat/rooms/"+productId
+
+            }).done(function(aa){
+                console.log(aa);
+                //location.href=`/chat/rooms/`+aa;
+
+            }).fail(function(error){
+                console.log(error);
+
+            })
+    })
+
+
+})
 
 function callFunction(obj) {
     alert("업데이트 예정입니다.");
 }
 
-like.init();

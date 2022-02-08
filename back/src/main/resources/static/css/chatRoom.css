@@ -1,0 +1,31 @@
+
+.container{margin: 20px 0px}
+
+.back{position: absolute;left: 10px;top: 15px; display: inline-block; width: 46px;}
+.back img{width: 20px;}
+/* back */
+
+#sec_01{margin: 0 0 7px; padding: 0 0 5px; border-bottom: 1px solid #ccc;}
+#sec_01 h1{font-size: 16px;text-align:center}
+
+
+#sec_02{padding: 0 10px 60px;}
+#sec_02 >div >div{padding: 0 0 5px;}
+
+span.time{display:inline-block; font-size: 10px; vertical-align: bottom; color: #ccc; padding: 0 3px 0;}
+
+.me{float: right;margin: 0 0 0 10%}
+.me{float: right; width:90%;}
+.me >div div.message{float:right; background: tomato; border-radius: 12px 12px 0; color: #fff; display: inline-block; padding: 8px; font-size: 12px;}
+.me >div span.time{float:right}
+
+.other{float:left;}
+.other >div div.message{background: steelblue; border-radius: 12px 12px 12px 0; color: #fff; display: inline-block; padding: 8px; font-size: 12px;}
+.other >div span.time{}
+
+#sec_03 {width:100%; position: fixed;bottom: 0;text-align: center; background: #fff; border-top: 1px solid #ccc}
+#sec_03 >div{width:95%; padding: 10px 0 25px; margin: 0 auto}
+#sec_03 >div input { width: 80%; vertical-align: top;}
+
+#button-send{ display:inline-block; width:50px; height:32px; line-height:32px; background: #000; color: #fff; border-radius: 8px;}
+
