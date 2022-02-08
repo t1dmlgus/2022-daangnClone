@@ -35,7 +35,7 @@ public class ChatRoomController {
         System.out.println("responseDto = " + responseDto);
         model.addAttribute("lists", responseDto.getData());
 
-        return "/chat/chatRoomList";
+        return "chat/chatRoomList";
     }
 
 
@@ -47,7 +47,7 @@ public class ChatRoomController {
         ResponseDto<?> chatRoomDto = chatService.getChatRoom(roomId);
         model.addAttribute("room", chatRoomDto.getData());
         model.addAttribute("principal", principalDetails.getUser());
-        return "/chat/chatRoom";
+        return "chat/chatRoom";
     }
 
 }
