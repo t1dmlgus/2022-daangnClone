@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.chat.application;
 
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoom;
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoomRepository;
+import com.t1dmlgus.daangnClone.chat.ui.dto.ChatMessageDto;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomResponseDto;
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
@@ -11,9 +12,13 @@ import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +26,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class ChatServiceImpl implements ChatService{
+
+    @Value("${file.path}")
+    String fileUploadPath;
 
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
@@ -67,6 +75,27 @@ public class ChatServiceImpl implements ChatService{
 
         List<ChatRoomResponseDto> collect = chatRooms.stream().map(ChatRoomResponseDto::new).collect(Collectors.toList());
         return new ResponseDto<>("해당 유저의 채팅목록이 조회되었습니다.", collect);
+    }
+
+    public void updateChat(ChatMessageDto message){
+
+        try {
+            Path directories = Files.createDirectories(Path.of(fileUploadPath));
+            File file = new File(String.valueOf(directories),message.getRoomId() + ".txt");
+
+            if (file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file, true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println("{\"roomId\":\""+message.getRoomId()+"\",\"writer\":\""+message.getWriter()+"\",\"message\":" +
+                    "\""+message.getMessage()+"\",\"time\":\""+message.getTime()+"\"}");
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

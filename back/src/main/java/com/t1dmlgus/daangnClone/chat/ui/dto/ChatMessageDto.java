@@ -17,7 +17,8 @@ public class ChatMessageDto {
     private String message;
     private String time;
 
-    public void setTime(LocalDateTime time) {
-        this.time = time.format(DateTimeFormatter.ofPattern("a hh시 mm분"));
+
+    public void toSimpleChatTime(LocalDateTime time) {
+        this.time = time.format(DateTimeFormatter.ofPattern("a h시 mm분"));
     }
 }
