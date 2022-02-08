@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class ChatRoomController {
 
     //채팅방 조회
     @GetMapping("/room")
-    public String getRoom(String roomId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String getRoom(String roomId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
 
         log.info("# get Chat Room, roomID : " + roomId);
         ResponseDto<?> chatRoomDto = chatService.getChatRoom(roomId);

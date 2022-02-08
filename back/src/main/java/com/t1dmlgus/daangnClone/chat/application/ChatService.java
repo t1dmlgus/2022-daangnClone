@@ -2,6 +2,7 @@ package com.t1dmlgus.daangnClone.chat.application;
 
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
+import java.io.IOException;
 
 public interface ChatService {
 
@@ -12,7 +13,7 @@ public interface ChatService {
     ResponseDto<?> allChatRoomBySeller(Long productId);
 
     // 채팅방 조회
-    ResponseDto<?> getChatRoom(String roomId);
+    ResponseDto<?> getChatRoom(String roomId) throws IOException;
 
 
 

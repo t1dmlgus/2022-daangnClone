@@ -1,5 +1,7 @@
 package com.t1dmlgus.daangnClone.chat.application;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoom;
 import com.t1dmlgus.daangnClone.chat.domain.ChatRoomRepository;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatMessageDto;
@@ -17,8 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,10 +64,13 @@ public class ChatServiceImpl implements ChatService{
 
     @Transactional
     @Override
-    public ResponseDto<?> getChatRoom(String roomId) {
+    public ResponseDto<?> getChatRoom(String roomId) throws IOException {
 
         ChatRoom loadChatRoom = chatRoomRepository.getByRoomId(roomId);
-        return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom));
+        // 이전 채팅 reload
+        List<ChatMessageDto> reloadChat = reloadChat(roomId);
+
+        return new ResponseDto<>("채팅방이 조회되었습니다.", new ChatRoomResponseDto(loadChatRoom, reloadChat));
     }
 
 
@@ -98,4 +105,21 @@ public class ChatServiceImpl implements ChatService{
         }
     }
 
+    public List<ChatMessageDto> reloadChat(String roomId) throws IOException{
+
+        ArrayList<ChatMessageDto> beforeChat = new ArrayList<>();
+        File file = new File(fileUploadPath + roomId + ".txt");
+
+        if (file.exists()) {
+            BufferedReader br = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8));
+
+            String str;
+            while ((str = br.readLine()) != null) {
+                ChatMessageDto chatMessage = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(str, ChatMessageDto.class);
+                beforeChat.add(chatMessage);
+            }
+            br.close();
+        }
+        return beforeChat;
+    }
 }
