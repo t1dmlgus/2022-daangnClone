@@ -6,17 +6,12 @@ import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
-import com.t1dmlgus.daangnClone.product.ui.ProductApiController;
-import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.ProductResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.*;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,8 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -36,26 +32,26 @@ public class ProductServiceImpl implements ProductService{
     private final S3Service s3Service;
     private final LikesService likesService;
 
-    Logger logger = LoggerFactory.getLogger(ProductApiController.class);
-
     @Transactional
     @Override
     public ResponseDto<?> registerProduct(ProductRequestDto productRequestDto, MultipartFile multipartFile, User user) {
 
-        Product product = productRequestDto.toEntity(user);
+        log.info("# 상품 서비스 >> 상품 등록");
 
         // 1. 영속화
+        Product product = productRequestDto.toEntity(user);
         Product saveProduct = productRepository.save(product);
-        logger.info("saveProduct, {}", saveProduct);
+
         // 2. 이미지 업로드
         s3Service.upload(multipartFile, saveProduct);
-
         return new ResponseDto<>("상품이 등록되었습니다.", saveProduct.getId());
     }
 
     @Transactional
     @Override
     public ResponseDto<?> inquiryProduct(Long productId, Long userId) {
+
+        log.info("# 상품 서비스 >> 상품 상세정보 조회");
 
         // 1. 상품
         Product product = productRepository.findById(productId).orElseThrow(
@@ -76,9 +72,15 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ResponseDto<?> allProduct(Long userId, Pageable pageable) {
 
-        List<ProductResponseDto> allProductDtos = new ArrayList<>();
+        log.info("# 상품 서비스, 전체 상품 조회(페이징)");
 
-        for (Product product : productRepository.findAll(pageable)) {
+        List<ProductResponseDto> allProductDtos = new ArrayList<>();
+        Page<Product> pageAllProduct = productRepository.findAll(pageable);
+        int totalPages = pageAllProduct.getTotalPages();
+
+
+        //allProductDtos.get(0).get
+        for (Product product : pageAllProduct) {
 
             // 1. 몇분 전
             String registerTime = getRegisterProduct(product.getCreatedDate());
@@ -92,14 +94,15 @@ public class ProductServiceImpl implements ProductService{
             // 4. 랜딩 페이지 List<Dto>
             allProductDtos.add(new ProductResponseDto(product, registerTime, productLikesStatus, coverImage));
         }
-        return new ResponseDto<>("상품을 전체 조회합니다.", allProductDtos);
+        return new ResponseDto<>("상품을 전체 조회합니다.", new RandingProductDto(allProductDtos, totalPages));
     }
 
     @Override
     public ResponseDto<?> categoryProduct(Category category,Long userId, Pageable pageable) {
 
-        List<ProductResponseDto> categoryByProductDtos = new ArrayList<>();
+        log.info("# 상품 서비스, 카테고리 별 상품 상세정보 조회");
 
+        List<ProductResponseDto> categoryByProductDtos = new ArrayList<>();
         Page<Product> productByCategory = productRepository.findByCategory(category, pageable);
 
         for (Product product : productByCategory) {
@@ -115,6 +118,16 @@ public class ProductServiceImpl implements ProductService{
 
         return new ResponseDto<>("카테고리 별로 조회합니다.", categoryByProductDtos);
     }
+
+
+    public List<Product> initDataProduct(List<ProductRequestDto> productRequestDtos, User adminUser) {
+
+        log.info("# 상품 초기화 >> 전체상품 등록");
+        List<Product> collect = productRequestDtos.stream().map(i -> i.toEntity(adminUser)).collect(Collectors.toList());
+        productRepository.saveAll(collect);
+        return collect;
+    }
+
 
 
     // 몇분 전 기능
