@@ -58,25 +58,32 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
         List<Product> products = productService.initDataProduct(initDataProductByCsv(), adminUser);
 
         log.info("# 상품 이미지 초기화 >> ");
-        List<MultipartFile> multipartFiles = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            multipartFiles.add(fileToMultipart(i));
+        String[] category = {"DIGITAL_DEVICE","FURNITURE_INTERIOR"};
+
+        for (int index = 0; index < category.length; index++) {
+            List<MultipartFile> multipartFiles = fileToMultipart(category[index]);
+            s3Service.initDataImage(multipartFiles, products, index);
         }
-        s3Service.initDataImage(multipartFiles, products);
-        
+
     }
 
-    private MultipartFile fileToMultipart(int i) throws IOException {
+    private List<MultipartFile> fileToMultipart(String data) throws IOException {
 
         log.info("# 상품 초기화 >> 이미지 파일 가져오기");
-        File file = new ClassPathResource("static/data/DIGITAL_DEVICE/" + i + ".PNG").getFile();
-        FileItem fileItem = new DiskFileItem("", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length() , file.getParentFile());
 
-        InputStream input = new FileInputStream(file);
-        OutputStream os = fileItem.getOutputStream();
-        IOUtils.copy(input, os);
+        List<MultipartFile> multipartFiles = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
 
-        return new CommonsMultipartFile(fileItem);
+            File file = new ClassPathResource("static/data/"+data+"/" + i + ".PNG").getFile();
+            FileItem fileItem = new DiskFileItem("", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length() , file.getParentFile());
+
+            InputStream input = new FileInputStream(file);
+            OutputStream os = fileItem.getOutputStream();
+            IOUtils.copy(input, os);
+
+            multipartFiles.add(new CommonsMultipartFile(fileItem));
+        }
+        return multipartFiles;
     }
 
 

@@ -65,31 +65,27 @@ public class S3Service {
     public void upload(MultipartFile multipartFile, Product product){
 
         log.info("# 이미지 등록 >> upload");
-        // 파일명
         String fileName = createFileName(multipartFile);
-        // 업로드
         uploadImages(multipartFile, fileName);
-        // 영속화
         saveImages(fileName, product);
     }
 
     @Transactional
-    public void initDataImage(List<MultipartFile> multipartFiles, List<Product> products){
+    public void initDataImage(List<MultipartFile> multipartFiles, List<Product> products, int index){
 
         List<Image> images = new ArrayList<>();
 
         log.info("# 상품 초기화 >> 전체 이미지 업로드");
         for (int i = 0; i < 10; i++) {
-            String fileName = createFileName(multipartFiles.get(i));
-            // 업로드
-            uploadImages(multipartFiles.get(i), fileName);
-            images.add(new Image("https://" + CLOUD_FRONT_DOMAIN_NAME + fileName, products.get(i)));
+
+            String fileName = createFileName(multipartFiles.get(index));
+            uploadImages(multipartFiles.get(i), fileName);                                       // 0~ 9, 10~19, 20~29
+            images.add(new Image("https://" + CLOUD_FRONT_DOMAIN_NAME + fileName, products.get((index*10)+i)));
         }
 
         log.info("# 상품 초기화 >> 전체 이미지 영속화");
         imageRepository.saveAll(images);
     }
-
 
 
     protected void uploadImages(MultipartFile multipartFile, String fileName) {
@@ -103,9 +99,7 @@ public class S3Service {
             s3Client.putObject(new PutObjectRequest(bucket, fileName, multipartFile.getInputStream(), objMeta)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
-
         } catch (Exception e) {
-            //e.printStackTrace();
             throw new CustomApiException("s3 이미지 업로드에 실패하였습니다.");
         }
     }
@@ -136,14 +130,11 @@ public class S3Service {
         }
     }
 
-
     // 상품 이미지 조회
     public List<String> inquiryProductImage(Long productId) {
 
         log.info("# 이미지 조회 >> inquiryProductImage");
-        List<String> ProductImages = imageRepository.findAllByProductId(productId)
+        return imageRepository.findAllByProductId(productId)
                 .stream().map(Image::getFileName).collect(Collectors.toList());
-
-        return ProductImages;
     }
 }
