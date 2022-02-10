@@ -36,15 +36,13 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
     private S3Service s3Service;
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
 
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        log.info("# 데이터 초기화 >> ApplicationRunnerImpl");
-        initProduct(initUser());
+        //log.info("# 데이터 초기화 >> ApplicationRunnerImpl");
+        //initProduct(initUser());
     }
 
     private User initUser() {
