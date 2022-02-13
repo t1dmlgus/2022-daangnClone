@@ -1,11 +1,11 @@
 package com.t1dmlgus.daangnClone.product.application;
 
-import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
+import com.t1dmlgus.daangnClone.handler.aop.LogExecutionTime;
 import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
+import com.t1dmlgus.daangnClone.product.domain.repository.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.dto.*;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
@@ -47,24 +47,19 @@ public class ProductServiceImpl implements ProductService{
         return new ResponseDto<>("상품이 등록되었습니다.", saveProduct.getId());
     }
 
+    @LogExecutionTime
     @Transactional
     @Override
     public ResponseDto<?> inquiryProduct(Long productId, Long userId) {
 
         log.info("# 상품 서비스 >> 상품 상세정보 조회");
 
-        // 1. 상품
-        Product product = productRepository.findById(productId).orElseThrow(
-                () -> { return new CustomApiException("해당 상품은 없습니다.");});
+        // 1. 상품 상세 조회
+        InquiryProductResponseDto inquiryProductResponseDto = productRepository.inquiryProductDetail(productId, userId);
         // 2. 몇분 전
-        String registerTime = getRegisterProduct(product.getCreatedDate());
-        // 3. 상품 이미지 리스트
-        List<String> productImages = getProductImages(productId);
-        // 4. 해당 유저에 관한 상품 top4
-        List<InquiryProductTopFourResponseDto> topFourProducts = inquiryTopFourProduct(productId, product.getUser().getId());
-        // 5. 상품 좋아요 정보(상태, 카운트)
-        ProductLikesStatus productLikesStatus = getProductLikesStatus(userId, productId);
-        return new ResponseDto<>("조회한 상품입니다.", new InquiryProductResponseDto(product, registerTime, getProductImages(productId), productLikesStatus, topFourProducts));
+        inquiryProductResponseDto.setRegisterTime(getRegisterProduct(inquiryProductResponseDto.getLocalDateTime()));
+
+        return new ResponseDto<>("상품을 조회했습니다.", inquiryProductResponseDto);
     }
 
 
@@ -78,8 +73,6 @@ public class ProductServiceImpl implements ProductService{
         Page<Product> pageAllProduct = productRepository.findAll(pageable);
         int totalPages = pageAllProduct.getTotalPages();
 
-
-        //allProductDtos.get(0).get
         for (Product product : pageAllProduct) {
 
             // 1. 몇분 전
@@ -151,11 +144,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     // 유저 판매 상폼 조회(top4)
-    protected List<InquiryProductTopFourResponseDto> inquiryTopFourProduct(Long productId, Long userId) {
+    protected List<TopFourProduct> inquiryTopFourProduct(Long productId, Long userId) {
 
-        List<InquiryProductTopFourResponseDto> t4Product = new ArrayList<>();
+        List<TopFourProduct> t4Product = new ArrayList<>();
         for (Product product : productRepository.inquiryProductTopFourByUser(productId, userId)) {
-            t4Product.add(new InquiryProductTopFourResponseDto(product, getCoverImage(product.getId())));
+            t4Product.add(new TopFourProduct(product, getCoverImage(product.getId())));
         }
 
         return t4Product;

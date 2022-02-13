@@ -21,8 +21,8 @@
             <img src="/img/home.png" alt="home">
         </a>
         <section id="sec_01">
-            <div class="product_img" th:each="image : ${product.images}">
-                <img src="/img/product01.png" alt="f2" th:src="${image}">
+            <div class="product_img">
+                <img src="/img/product01.png" alt="커버이미지" th:src="${product.coverImage}">
             </div>
         </section>
         <!-- swiper -->
