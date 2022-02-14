@@ -3,6 +3,7 @@ package com.t1dmlgus.daangnClone.chat.application;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatMessageDto;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
+
 import java.io.IOException;
 
 public interface ChatService {

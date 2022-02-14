@@ -9,7 +9,6 @@ import com.t1dmlgus.daangnClone.product.domain.repository.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.TopFourProduct;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
 import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;

@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public ResponseDto<?> inquiry(Long userId) {
+    public ResponseDto<?> enquiry(Long userId) {
 
         log.info("# 유저 서비스 >> 회원조회");
         User enquiryUser = userRepository.findById(userId).orElseThrow(
