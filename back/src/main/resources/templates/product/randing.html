@@ -28,6 +28,7 @@
         </section>
         <!-- header -->
         <section id="sec_content" >
+            <input type="hidden" id="totalPage" th:value="${product.totalPages}"/>
             <div class="cont" th:each="product : ${product}">
                 <div class="cont_img">
                     <a th:href="|/product/${product.productId}|">
@@ -41,14 +42,17 @@
                             <div class="location" th:text="${product.place}">장소</div>
                             <div class="registerTime" th:text="${product.registerTime}">몇 분전</div>
                         </div>
-                        <div class="price" th:text="${product.price}"> 가격</div>
+                        <div class="price" th:text="${#numbers.formatInteger(product.price,0,'COMMA')}"> 가격</div>
                         <div class="won">원</div>
                     </div>
                     <div class="service">
+
+                        <!-- // 댓글(비활성화)
                         <div href="#" class="comment">
                             <img src="/img/comment.png" alt="댓글">
                             <span class="commentCount">n</span>
                         </div>
+                        -->
                         <div class="likes" th:if="${product.likesStatus}">
                             <img class="likeStatus" src="/img/heart.png" alt="좋아요">
                         </div>

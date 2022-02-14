@@ -6,7 +6,6 @@ import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.application.UserService;
 import com.t1dmlgus.daangnClone.user.domain.User;
-import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;

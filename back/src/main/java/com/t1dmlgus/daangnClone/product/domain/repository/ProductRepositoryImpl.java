@@ -46,12 +46,12 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom{
 
         // 해당 상품 유저가 등록한 상위 4개
         List<TopFourProduct> topFourProduct = queryFactory
-                .select(Projections.constructor(
+                        .select(Projections.constructor(
                         TopFourProduct.class,
                         product, image.fileName))
                 .from(product, image)
                 .join(image.product, product)
-                .where(product.user.eq(product.user).and(product.id.ne(productId)))//productId
+                .where(product.user.id.eq(inquiryProductResponseDto1.getUserId()).and(product.id.ne(productId)))//productId
                 .distinct()
                 .orderBy(product.id.desc())
                 .limit(4)

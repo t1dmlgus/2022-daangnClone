@@ -36,7 +36,7 @@ var like ={
 
             }).done(function(aa){
 
-                alert("좋아요 취소💔");
+                alert("관심 상품 취소💔");
                 $('#likebtn').children('div').attr('val','false');
 
             }).fail(function(error){
@@ -57,11 +57,11 @@ var like ={
                 contentType: 'application/json; charset=utf-8'
 
             }).done(function(aa){
-                alert("좋아요❤");
+                alert("관심 상품으로 등록되었습니다❤");
                 $('#likebtn').children('div').attr('val','true');
 
             }).fail(function(error){
-                alert('좋아요 취소 에러');
+                alert('관심 상품으로 등록 에러');
 
             })
         }

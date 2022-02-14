@@ -101,7 +101,7 @@ class ProductRepositoryImplTest {
                         product, image.fileName))
                 .from(product, image)
                 .join(image.product, product)
-                .where(product.user.eq(product.user).and(product.id.ne(20L)))//productId
+                .where(product.user.id.eq(1L).and(product.id.ne(20L)))//productId
                 .distinct()
                 .limit(4)
                 .fetch();

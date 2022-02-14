@@ -10,7 +10,7 @@ public interface UserService {
     ResponseDto<?> join(JoinRequestDto JoinRequestDto);
 
     // 회원조회
-    ResponseDto<?> inquiry(Long userId);
+    ResponseDto<?> enquiry(Long userId);
 
     // 관리자 유저 등록
     User initDataUser(Long id);

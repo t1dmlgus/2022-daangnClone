@@ -17,28 +17,29 @@
 #sec_02 .prod_desc{padding:5px 0 15px;}
 #sec_02 .prod_desc >div{padding-bottom: 6px}
 #sec_02 .prod_desc >div span{display: inline-block;}
-#sec_02 .prod_desc >div span.title{font-size: 20px;font-weight: bold;}
+#sec_02 .prod_desc >div span.title{display:block; max-height:80px; font-size: 20px;font-weight: bold;overflow: hidden}
 #sec_02 .prod_desc >div span.price{font-weight: bold;}
 #sec_02 .prod_desc >div.gray{font-size:12px; color:#c0c0c0;}
-#sec_02 .prod_desc .cont{height: 80px;}
+#sec_02 .prod_desc >div.someonelike{padding: 10px 0 0}
+#sec_02 .prod_desc .cont{max-height:300px; margin: 20px 0; white-space: pre-wrap;}
 #sec_02 .prod_desc .likes{display: inline-block;}
-#sec_02 .prod_desc .price{float: right; font-weight:bold; padding: 0 10px 0;}
+
 
 #sec_03{margin:20px 30px;}
 #sec_03 .product_caption{padding-bottom: 15px;}
-#sec_03 .showall{float: right;}
-#sec_03 .products{}
+#sec_03 .showAll{float: right;}
+#sec_03 .products{font-size:12px}
 #sec_03 .products >div{display: inline-block; width: 46%; margin: 2% 1%;}
 #sec_03 .products >div img{border: 1px solid #000;box-sizing: border-box;}
-#sec_03 .products >div span{display: block; padding: 2px 0;}
+#sec_03 .products >div span.title{display: block; padding: 2px 0;  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 #sec_03 .empty{height:100px}
 
 #sec_04{position:fixed; bottom:0; margin:20px 0px 0; padding: 10px 0; border-top: 1px solid #ccc;background:#fff;}
-#sec_04 .icon{width: 50%;display: inline-block;margin: 0 auto;vertical-align: middle}
-#sec_04 .likebtn{display: inline-block; padding: 0 15px 0 ; width: 25%; vertical-align: baseline; border-right: 1px solid #ccc;}
+#sec_04 .icon{width: 58%;display: inline-block;margin: 0 auto;vertical-align: middle}
+#sec_04 .likebtn{display: inline-block; padding: 0 15px 0 ; width: 25%; vertical-align: middle; border-right: 1px solid #ccc;}
+.price{display: inline-block; font-weight:bold;}
 #sec_04 .commentbtn{display: inline-block; margin:0 10%; width: 25%;}
 
-#sec_04 .comment{width: 48%; display: inline-block; text-align: right}
+#sec_04 .comment{width: 40%; display: inline-block; text-align: right}
 #sec_04 .comment a{display: inline-block; padding:15px 5px; margin: 0 15px 0 0;
-    background-color: rgb(253, 137, 43);color: #fff;border-radius: 10px;font-size: 15px;
-text-align: center;}
+    background-color: rgb(253, 137, 43);color: #fff;border-radius: 10px;font-size: 15px;text-align: center;}
