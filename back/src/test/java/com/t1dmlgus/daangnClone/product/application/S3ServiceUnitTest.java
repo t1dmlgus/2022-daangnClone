@@ -1,9 +1,9 @@
 package com.t1dmlgus.daangnClone.product.application;
 
 import com.t1dmlgus.daangnClone.product.domain.Image;
-import com.t1dmlgus.daangnClone.product.domain.ImageRepository;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
+import com.t1dmlgus.daangnClone.product.domain.repository.ImageRepository;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import org.junit.jupiter.api.BeforeAll;
