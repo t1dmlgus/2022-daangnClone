@@ -4,8 +4,8 @@ import com.t1dmlgus.daangnClone.likes.application.LikesService;
 import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
+import com.t1dmlgus.daangnClone.product.domain.repository.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductRequestDto;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -92,14 +92,11 @@ class ProductServiceImplTest {
     @Test
     public void InquiryProductTest() throws Exception {
         //given
-        doReturn(Optional.of(testProduct)).when(productRepository).findById(any(Long.class));
-        doReturn(new ArrayList<>()).when(s3service).inquiryProductImage(any(Long.class));
-        doReturn(new ProductLikesStatus()).when(likesService).productLikesStatus(testProduct.getId(), testUser.getId());
 
         //when
         ResponseDto<?> product = productServiceImpl.inquiryProduct(testProduct.getId(), testUser.getId());
         //then
-        assertThat(product.getMessage()).isEqualTo("조회한 상품입니다.");
+        assertThat(product.getMessage()).isEqualTo("상품을 조회했습니다.");
 
     }
 
@@ -110,16 +107,6 @@ class ProductServiceImplTest {
         //given
         // 상품 리스트 페이징
         PageRequest of = PageRequest.of(0, 5);
-        Page<Product> p = new PageImpl<>(new ArrayList<>(List.of(testProduct, testProduct)));
-        // 전체 상품 조회
-        when(productRepository.findAll(of)).thenReturn(p);
-        // 해당 상품 좋아요 상태
-        when(likesService.productLikesStatus(testProduct.getId(), testUser.getId()))
-                .thenReturn(new ProductLikesStatus(true, 5));
-        // 해당 상품 이미지 리스트 조회
-        when(s3service.inquiryProductImage(anyLong()))
-                .thenReturn(new ArrayList<>(List.of("testImage01", "testImage02", "testImage03")));
-
         //when
         ResponseDto<?> allProductDtos = productServiceImpl.allProduct(testUser.getId(), of);
         //then
