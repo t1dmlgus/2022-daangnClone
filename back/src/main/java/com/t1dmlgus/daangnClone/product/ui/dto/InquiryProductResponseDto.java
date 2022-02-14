@@ -4,11 +4,11 @@ import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
+import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -32,7 +32,7 @@ public class InquiryProductResponseDto {
     private boolean likesStatus;
     private int likesCount;
     private String registerTime;
-    private LocalDateTime localDateTime;
+
 
     public InquiryProductResponseDto(Product product, String registerTime, List<String> images, ProductLikesStatus productLikesStatus, List<TopFourProduct> t4Prod) {
 
@@ -65,7 +65,7 @@ public class InquiryProductResponseDto {
         this.coverImage = coverImage;
         this.likesStatus = likesStatus;
         this.likesCount = likesCount.intValue();
-        this.localDateTime = product.getCreatedDate();
+        this.registerTime = RegisterProductTimeFromNow.calculateTime(product.getCreatedDate());
 
     }
 }
