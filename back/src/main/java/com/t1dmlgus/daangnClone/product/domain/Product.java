@@ -20,20 +20,26 @@ public class Product extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "category")
     private Category category;
 
+    @Column(name = "price")
     private int price;
 
+    @Column(name = "caption")
     private String caption;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private SaleStatus status;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
 

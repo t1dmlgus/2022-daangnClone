@@ -19,7 +19,7 @@ import javax.persistence.*;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "id",
-                        columnNames = {"product_Id", "user_Id"}
+                        columnNames = {"product_id", "user_id"}
                 )
         }
 )
@@ -30,9 +30,11 @@ public class Likes extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"buyer_Id", "seller_Id", "product_Id"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"buyer_id", "seller_id", "product_id"})})
 @ToString(exclude = {"seller", "buyer", "product"})
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,18 +23,19 @@ public class ChatRoom {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "room_id")
     private String roomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_Id")
+    @JoinColumn(name = "seller_id")
     private User seller;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_Id")
+    @JoinColumn(name = "buyer_id")
     private User buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_Id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
 
