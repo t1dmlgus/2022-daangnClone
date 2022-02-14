@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InquiryProductTopFourResponseDto {
+public class TopFourProduct {
 
     private Long productId;
 
@@ -19,7 +19,7 @@ public class InquiryProductTopFourResponseDto {
 
     private String coverImage;
 
-    public InquiryProductTopFourResponseDto(Product product, String coverImage) {
+    public TopFourProduct(Product product, String coverImage) {
         this.productId = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();

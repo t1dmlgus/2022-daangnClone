@@ -28,8 +28,8 @@ public class ProductController {
     private final ProductService productService;
 
     // 랜딩 페이지
-    @GetMapping("/randing")
-    public String randing(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    @GetMapping("/randing")                                                                                                             //id
+    public String randing(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails, @PageableDefault(size = 10, sort = "productId", direction = Sort.Direction.DESC) Pageable pageable) {
 
         ResponseDto<?> allProductDtos = productService.allProduct(principalDetails.getUser().getId(), pageable);
 

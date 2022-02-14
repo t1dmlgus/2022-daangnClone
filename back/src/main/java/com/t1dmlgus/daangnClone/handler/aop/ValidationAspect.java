@@ -16,9 +16,9 @@ import java.util.Map;
 
 @Component
 @Aspect
-public class ValidationAdvice {
+public class ValidationAspect {
 
-    Logger logger = LoggerFactory.getLogger(ValidationAdvice.class);
+    Logger logger = LoggerFactory.getLogger(ValidationAspect.class);
 
     @Around("execution(* com.t1dmlgus.daangnClone.user.ui.UserApiController.join(..))")
     public Object joinAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{

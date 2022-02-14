@@ -1,6 +1,9 @@
-let page = 1;
+// 토탈 페이지
+var totalPage = $("#totalPage").val();
+let page = 0;
 
-// (1) 스토리 로드하기
+
+// (1) 랜딩 페이지 로딩
 function storyLoad() {
 
     $.ajax({
@@ -9,8 +12,11 @@ function storyLoad() {
         dataType:"json",
 
     }).done(res=>{
-//        console.log(res);
-        res.data.forEach(element=>{
+
+        console.log(res.data.content);
+
+        res.data.content.forEach(element=>{
+
             let storyItem = getStoryItem(element);
             $("#sec_content").append(storyItem);
         })
@@ -19,7 +25,7 @@ function storyLoad() {
     });
 }
 
-storyLoad();
+
 
 function getStoryItem(element) {
 
@@ -64,7 +70,9 @@ function getStoryItem(element) {
 }
 
 
-// (2) 스토리 스크롤 페이징하기
+// (2) 랜딩 페이지 스크롤 페이징
+
+
 $(window).scroll(() => {
 
 //    console.log("스크롤중");
@@ -74,13 +82,18 @@ $(window).scroll(() => {
 
     // 윈도우 scrollTop = 문서의 높이 - 윈도우 높이
     let checkNum = $(window).scrollTop() - ($(document).height() - $(window).height());
-    if( checkNum< 1 && checkNum > -1){
-        page++;
-        storyLoad();
+
+    if(totalPage > page){
+        if( checkNum< 1 && checkNum > -1){
+            page++;
+            storyLoad();
+        }
     }
+
 });
 
 
+// (3) 업데이트 되지 않은 기능 (비활성화)
 function callFunction(obj) {
     alert("업데이트 예정입니다.");
 }

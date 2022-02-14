@@ -7,11 +7,11 @@ import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.application.ProductService;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
+import com.t1dmlgus.daangnClone.product.domain.repository.ProductRepository;
 import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductResponseDto;
-import com.t1dmlgus.daangnClone.product.ui.dto.InquiryProductTopFourResponseDto;
 import com.t1dmlgus.daangnClone.product.ui.dto.ProductResponseDto;
+import com.t1dmlgus.daangnClone.product.ui.dto.TopFourProduct;
 import com.t1dmlgus.daangnClone.user.domain.Role;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
@@ -122,9 +122,9 @@ class ProductApiControllerTest {
         List<String> productImages = new ArrayList<>(List.of("testImageUrl1", "testImageUrl2", "testImageUrl3"));
 
 
-        List<InquiryProductTopFourResponseDto> t4Prod =
-                new ArrayList<>(List.of(new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl")
-                , new InquiryProductTopFourResponseDto(testProduct, "coverImageUrl2")));
+        List<TopFourProduct> t4Prod =
+                new ArrayList<>(List.of(new TopFourProduct(testProduct, "coverImageUrl")
+                , new TopFourProduct(testProduct, "coverImageUrl2")));
 
         InquiryProductResponseDto inquiryProductResponseDto
                 = new InquiryProductResponseDto(testProduct,registerTime, productImages, productLikesStatus, t4Prod);

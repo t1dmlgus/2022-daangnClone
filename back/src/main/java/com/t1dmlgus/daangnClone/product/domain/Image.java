@@ -19,9 +19,9 @@ public class Image extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "image_id")
     private Long id;
 
+    @JoinColumn(name = "fileName")
     private String fileName;
 
     @JsonIgnore

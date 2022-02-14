@@ -16,6 +16,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -38,11 +39,12 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
     private UserService userService;
 
 
+    @Transactional
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        //log.info("# 데이터 초기화 >> ApplicationRunnerImpl");
-        //initProduct(initUser());
+//        log.info("# 데이터 초기화 >> ApplicationRunnerImpl");
+//        initProduct(initUser());
     }
 
     private User initUser() {

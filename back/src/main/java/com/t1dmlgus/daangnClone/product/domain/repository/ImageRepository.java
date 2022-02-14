@@ -1,5 +1,6 @@
-package com.t1dmlgus.daangnClone.product.domain;
+package com.t1dmlgus.daangnClone.product.domain.repository;
 
+import com.t1dmlgus.daangnClone.product.domain.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

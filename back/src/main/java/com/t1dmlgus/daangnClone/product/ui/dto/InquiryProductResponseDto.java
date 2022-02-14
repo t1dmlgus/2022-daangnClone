@@ -4,11 +4,13 @@ import com.t1dmlgus.daangnClone.likes.ui.dto.ProductLikesStatus;
 import com.t1dmlgus.daangnClone.product.domain.Category;
 import com.t1dmlgus.daangnClone.product.domain.Product;
 import com.t1dmlgus.daangnClone.product.domain.SaleStatus;
+import com.t1dmlgus.daangnClone.util.RegisterProductTimeFromNow;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,14 +25,16 @@ public class InquiryProductResponseDto {
     private SaleStatus saleStatus;
     private String nickName;
     private String caption;
+    private String coverImage;
     private List<String> images;
-    List<InquiryProductTopFourResponseDto> t4Prods;
+    List<TopFourProduct> t4Prods;
     private String place;
     private boolean likesStatus;
     private int likesCount;
     private String registerTime;
 
-    public InquiryProductResponseDto(Product product, String registerTime, List<String> images, ProductLikesStatus productLikesStatus, List<InquiryProductTopFourResponseDto> t4Prod) {
+
+    public InquiryProductResponseDto(Product product, String registerTime, List<String> images, ProductLikesStatus productLikesStatus, List<TopFourProduct> t4Prod) {
 
         this.productId = product.getId();
         this.userId = product.getUser().getId();
@@ -46,6 +50,22 @@ public class InquiryProductResponseDto {
         this.likesStatus = productLikesStatus.isLikesStatus();
         this.likesCount = productLikesStatus.getLikesCount();
         this.t4Prods = t4Prod;
+    }
+
+    public InquiryProductResponseDto(Product product, String coverImage, Boolean likesStatus, Long likesCount) {
+        this.productId = product.getId();
+        this.userId = product.getUser().getId();
+        this.title = product.getTitle();
+        this.price = product.getPrice();
+        this.caption = product.getCaption();
+        this.category = product.getCategory();
+        this.saleStatus = product.getStatus();
+        this.nickName = product.getUser().getNickName();
+        this.place = product.getUser().getPlace();
+        this.coverImage = coverImage;
+        this.likesStatus = likesStatus;
+        this.likesCount = likesCount.intValue();
+        this.registerTime = RegisterProductTimeFromNow.calculateTime(product.getCreatedDate());
 
     }
 }

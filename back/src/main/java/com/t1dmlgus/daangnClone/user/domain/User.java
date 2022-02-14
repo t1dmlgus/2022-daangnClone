@@ -19,20 +19,27 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email")
     private String email;
 
     @JsonIgnore
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "phone")
     private String phone;
 
+    @Column(name = "nickName")
     private String nickName;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
+    @Column(name = "place")
     private String place;
 
     @Builder

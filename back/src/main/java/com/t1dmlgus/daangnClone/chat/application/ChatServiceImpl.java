@@ -9,7 +9,7 @@ import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomRequestDto;
 import com.t1dmlgus.daangnClone.chat.ui.dto.ChatRoomResponseDto;
 import com.t1dmlgus.daangnClone.handler.exception.CustomApiException;
 import com.t1dmlgus.daangnClone.product.domain.Product;
-import com.t1dmlgus.daangnClone.product.domain.ProductRepository;
+import com.t1dmlgus.daangnClone.product.domain.repository.ProductRepository;
 import com.t1dmlgus.daangnClone.user.domain.User;
 import com.t1dmlgus.daangnClone.user.domain.UserRepository;
 import com.t1dmlgus.daangnClone.user.ui.dto.ResponseDto;
