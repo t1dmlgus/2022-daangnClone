@@ -14,7 +14,7 @@
 #sec_header >div >a{display: inline-block; width: 20px;}
 
 
-#sec_content{}
+#sec_content{padding: 0 0 50px}
 #sec_content >div{padding: 10px 0; border-top: 1px  solid #ccc;}
 #sec_content >div.cont{}
 #sec_content >div div.cont_img{display: inline-block; width:30%; vertical-align: top;}

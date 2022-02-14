@@ -8,5 +8,13 @@
 
 
 #sec_01 .btn_upload{position: absolute; right: 0;top: 0; font-weight: bold; font-size: 18px; color: rgb(253, 137, 43);background-color: #fff }
+
+
+.upload-form-detail{padding: 20px 0 0 }
+.upload-form-detail > input{padding: 10px 0 }
+#upload-form > textarea{height: 80px}
+
 /* sec_01 */
+
+
 
